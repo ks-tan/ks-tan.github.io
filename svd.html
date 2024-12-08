@@ -35,7 +35,7 @@
                         <mo>[</mo>
                         <mtable>
                             <mtr>
-                                <mtd><mn>{{test}} {{nothing}}</mn></mtd>
+                                <mtd><mn>{{test}}</mn></mtd>
                                 <mtd><mn>0</mn></mtd>
                                 <mtd><mn>0</mn></mtd>
                                 <mtd><mn>0</mn></mtd>
@@ -168,11 +168,11 @@
                 if (!rootNode || !rootNode.nodeValue) return;
                 let textContent = rootNode.textContent.trim();
                 if (textContent.includes("\{\{") && textContent.includes("}}")) {
-                    getHTMLInLineVariables(textContent).forEach(variableName => {
-                        if (!Object.keys(listeners).includes(variableName))
-                            listeners[variableName] = [];
-                        listeners[variableName].push({ element: rootNode, textContent: textContent });
-                    });
+                    var variables = getHTMLInLineVariables(textContent);
+                    if (variables.length === 0) return;
+                    variablesValues = [];
+                    variables.forEach(variable => variablesValues[variable] = undefined);
+                    listeners.push({ element: rootNode, content: textContent, variables: variablesValues });
                 }
             });
 
@@ -180,12 +180,10 @@
             { 
                 let result = [];
                 let openBracesIndex = -1;
-                for(let i = 0; i < str.length; i++) 
-                { 
+                for(let i = 0; i < str.length; i++) { 
                     // If opening delimiter is encountered 
                     if (str.substring(i, i + 2) === "\{\{" && openBracesIndex === -1)
                         openBracesIndex = i;
-        
                     // If closing delimiter is encountered 
                     else if (str.substring(i, i + 2) === "}}" && openBracesIndex > -1) {
                         let substring = str.substring(openBracesIndex + 2, i);
@@ -197,12 +195,18 @@
             }
 
             function updateListeners(variableName, newValue) {
-                Object.keys(listeners).forEach(key => {
-                    if (key.trim() !== variableName)
-                        return;
-                    listeners[key].forEach(entry => {
-                        entry.element.textContent = entry.textContent.replaceAll("\{\{" + key + "}}", newValue);
+                listeners.forEach(listener => {
+                    Object.keys(listener.variables).forEach(variableKey => {
+                        if (variableKey.trim() !== variableName) return;
+                        listener.variables[variableKey] = newValue;
                     });
+                });
+                listeners.forEach(listener => {
+                    let textContent = listener.content;
+                    Object.keys(listener.variables).forEach(variableKey => {
+                        textContent = textContent.replaceAll("\{\{" + variableKey + "}}", listener.variables[variableKey]);
+                    });
+                    listener.element.textContent = textContent;
                 });
             }
             // ==== END OF REACTIVE LIBRARY ====
