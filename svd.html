@@ -195,17 +195,22 @@
             }
 
             function updateListeners(variableName, newValue) {
+                let updatedListeners = [];
                 listeners.forEach(listener => {
+                    let isUpdated = false;
                     Object.keys(listener.variables).forEach(variableKey => {
                         if (variableKey.trim() !== variableName) return;
+                        isUpdated = true;
                         listener.variables[variableKey] = newValue;
                     });
+                    if (isUpdated)
+                        updatedListeners.push(listener);
                 });
-                listeners.forEach(listener => {
+                updatedListeners.forEach(listener => {
                     let textContent = listener.content;
-                    Object.keys(listener.variables).forEach(variableKey => {
-                        textContent = textContent.replaceAll("\{\{" + variableKey + "}}", listener.variables[variableKey]);
-                    });
+                    Object.keys(listener.variables).forEach(variableKey =>
+                        textContent = textContent.replaceAll("\{\{" + variableKey + "}}", listener.variables[variableKey])
+                    );
                     listener.element.textContent = textContent;
                 });
             }
