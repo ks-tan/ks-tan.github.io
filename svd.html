@@ -9,19 +9,27 @@
             font-family: sans-serif;
             font-size: 2.5vh;
             line-height: 4vh;
-            margin: 50px;
+            margin: 0 auto;
+            max-width: 80%;
         }
         h1 {
             line-height: 6vh;
         }
         math {
-            font-size: 3vh;
+            font-size: 2.65vh;
+        }
+
+        /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+        @media (min-width:1025px)  {
+            main {
+                max-width: 55%;
+            }
         }
     </style>
     <body>
         <main>
             <h1>Singular Value Decomposition</h1>
-            <p>From Wikipedia: "In linear algebra, the <b>singular value decomposition (SVD)</b> is a factorization of a real or complex matrix into a rotation, followed by a rescaling, followed by another rotation."</p>
+            <p>From Wikipedia: "In linear algebra, the <b>singular value decomposition (SVD)</b> is a factorization of a real or complex matrix into a <b>rotation</b>, followed by a <b>rescaling</b>, followed by <b>another rotation</b>."</p>
             <p>In other words, SVD can break any complex matrix into a multiplication of 3 other matrices. If we visualize the original matrix as a linear transformation, we can see it as:</p>
             <math><mrow><mi>A</mi><mo>=</mo><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub></mrow></math>
             <p>Here is a little interactive visualization of this observation in action - try and transform the white cube to fit the skewed grey shape.</p>
@@ -67,8 +75,8 @@
             <div style="overflow: auto; scrollbar-width: none;">
                 <math>
                     <mrow>
-                        <mi>A</mi><mo>=</mo><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub><mo>=</mo>
-                        <mo>[</mo>
+                        <mi>A</mi><mo>=</mo><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub>
+                        <mo>=</mo><mo>[</mo>
                         <mtable>
                             <mtr>
                                 <mtd><mn>cos(45°)</mn></mtd>
@@ -238,14 +246,14 @@
             updateListeners("_tm", fixDecimalPlaces(_tm, 2));
 
             function setup() {
-                _canvasWidth = windowHeight > windowWidth ? windowWidth / 1.15 : windowWidth / 2;
+                _canvasWidth = windowHeight > windowWidth ? windowWidth * 0.8 : windowWidth / 2;
                 let canvas = createCanvas(_canvasWidth, _canvasWidth * 9/16, WEBGL);
                 canvas.parent('sketch-holder');
                 angleMode(DEGREES);
             }
 
             function windowResized() {
-                _canvasWidth = windowHeight > windowWidth ? windowWidth / 1.25 : windowWidth / 2;
+                _canvasWidth = windowHeight > windowWidth ? windowWidth * 0.8 : windowWidth / 2;
                 resizeCanvas(_canvasWidth, _canvasWidth * 9/16);
             }
 
