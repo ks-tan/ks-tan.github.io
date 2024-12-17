@@ -29,10 +29,12 @@
     <body>
         <main>
             <h1>Singular Value Decomposition</h1>
+            <p>Published: Dec 2024</p>
+            <h3>Introducing SVD using linear transformations</h3>
             <p>From Wikipedia: "In linear algebra, the <b>singular value decomposition (SVD)</b> is a factorization of a real or complex matrix into a <b>rotation</b>, followed by a <b>rescaling</b>, followed by <b>another rotation</b>."</p>
             <p>In other words, we <b>only need 3 matrices</b> to form any complex matrix. If we visualize this complex matrix as a linear transformation, we can see it as:</p>
             <math><mrow><mi>A</mi><mo>=</mo><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub></mrow></math>
-            <p>Here is a little interactive visualization of this observation in action - try and transform the white cube to fit the skewed grey shape with just the <b>rotation > scale > rotation</b> operations.</p>
+            <p>Here is a little interactive visualization of this observation in action - try and transform the white square to fit the skewed grey shape with just the <b>rotation > scale > rotation</b> operations.</p>
             <p><b>Press keys WASD to scale, QE to rotate, and R to reset.</b></p>
             <p id="sketch-holder-1"></p>
             <div>
@@ -44,24 +46,19 @@
                             <mtr>
                                 <mtd><mn>{{_tm[0][0]}}</mn></mtd>
                                 <mtd><mn>{{_tm[0][1]}}</mn></mtd>
-                                <mtd><mn>{{_tm[0][2]}}</mn></mtd>
                             </mtr>
                             <mtr>
                                 <mtd><mn>{{_tm[1][0]}}</mn></mtd>
                                 <mtd><mn>{{_tm[1][1]}}</mn></mtd>
-                                <mtd><mn>{{_tm[1][2]}}</mn></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd><mn>{{_tm[2][0]}}</mn></mtd>
-                                <mtd><mn>{{_tm[2][1]}}</mn></mtd>
-                                <mtd><mn>{{_tm[2][2]}}</mn></mtd>
                             </mtr>
                         </mtable>
                         <mo>]</mo>
                     </mrow>
                 </math> 
             </div>
-            <p>That is perhaps a tricky execerise, so if the point hasn't been brought across, here is the white cube transforming to fit the skewed grey shape by following a sequence of 3 matrix operations.</p>
+            <p>That is perhaps a tricky execerise, so if the point hasn't been brought across, here is the white square transforming to fit the skewed grey shape by following a sequence of 3 matrix operations.</p>
+            <p id="sketch-holder-2"></p>
+            <p>First, we shall rotate by <math><mrow><msub><mi>R</mi><mi>1</mi></msub></mrow></math> = 45°, then we scale by <math><mrow><mi>S</mi></mrow></math> = (1.5, 0.5, 1.0), then we rotate again by <math><mrow><msub><mi>R</mi><mi>2</mi></msub></mrow></math> = 45°. This is represented by the following expression:</p>
             <div style="overflow: auto; scrollbar-width: none;">
                 <math>
                     <mrow>
@@ -71,17 +68,10 @@
                             <mtr>
                                 <mtd><mn>cos(45°)</mn></mtd>
                                 <mtd><mn>-sin(45°)</mn></mtd>
-                                <mtd><mn>0</mn></mtd>
                             </mtr>
                             <mtr>
                                 <mtd><mn>sin(45°)</mn></mtd>
                                 <mtd><mn>cos(45°)</mn></mtd>
-                                <mtd><mn>0</mn></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd><mn>0</mn></mtd>
-                                <mtd><mn>0</mn></mtd>
-                                <mtd><mn>1</mn></mtd>
                             </mtr>
                         </mtable>
                         <mo>]</mo>
@@ -91,17 +81,10 @@
                             <mtr>
                                 <mtd><mn>1.5</mn></mtd>
                                 <mtd><mn>0</mn></mtd>
-                                <mtd><mn>0</mn></mtd>
                             </mtr>
                             <mtr>
                                 <mtd><mn>0</mn></mtd>
                                 <mtd><mn>0.5</mn></mtd>
-                                <mtd><mn>0</mn></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd><mn>0</mn></mtd>
-                                <mtd><mn>0</mn></mtd>
-                                <mtd><mn>1</mn></mtd>
                             </mtr>
                         </mtable>
                         <mo>]</mo>
@@ -111,24 +94,148 @@
                             <mtr>
                                 <mtd><mn>cos(45°)</mn></mtd>
                                 <mtd><mn>-sin(45°)</mn></mtd>
-                                <mtd><mn>0</mn></mtd>
                             </mtr>
                             <mtr>
                                 <mtd><mn>sin(45°)</mn></mtd>
                                 <mtd><mn>cos(45°)</mn></mtd>
-                                <mtd><mn>0</mn></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd><mn>0</mn></mtd>
-                                <mtd><mn>0</mn></mtd>
-                                <mtd><mn>1</mn></mtd>
                             </mtr>
                         </mtable>
                         <mo>]</mo>
                     </mrow>
                 </math> 
             </div>
-            <p>Let us not worry about how the factorization into 3 matrices can be done yet. Instead, let us look into why SVD matters - because it exposes some interesting properties that can be used to solve a wide array of different problems!</p>
+            <p>Let us rewrite this as the <b>key expression</b> that is commonly used to describe the SVD of a matrix:</p>
+            <div style="overflow: auto; scrollbar-width: none;">
+                <math>
+                    <mrow>
+                        <mi>A</mi><mo>=</mo><mi>U</mi><mi>Σ</mi><msup><mi>V</mi><mi>T</mi></msup>
+                        <mo>=</mo><mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub><mi>u</mi><mi>1</mi></msub></mtd>
+                                <mtd><msub><mi>u</mi><mi>2</mi></msub></mtd>
+                                <mtd><mn>...</mn></mtd>
+                                <mtd><msub><mi>u</mi><mi>n</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub><mi>σ</mi><mi>1</mi></msub></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd><msub><mi>σ</mi><mi>2</mi></msub></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd>...</mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><msub><mi>σ</mi><mi>n</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msup><msub><mi>v</mi><mi>1</mi></msub><mi>T</mi></msup></mtd>
+                                <mtd><msup><msub><mi>v</mi><mi>2</mi></msub><mi>T</mi></msup></mtd>
+                                <mtd><mn>...</mn></mtd>
+                                <mtd><msup><msub><mi>v</mi><mi>n</mi></msub><mi>T</mi></msup></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                    </mrow>
+                </math>
+            </div>
+            <p>When we compare this with <math><mrow><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub></mrow></math>, we see that <math><mrow><mi>U</mi></mrow></math> and <math><mrow><mi>V</mi></mrow></math> are orthonormal matrices, i.e. it is made up of perpendicular unit vectors, or a set of linearly independent vectors.</p>
+            <p>And when we look at <math><mrow><mi>S</mi></mrow></math>, we see that <math><mrow><mi>Σ</mi></mrow></math> is a diagonal matrix that represents a "scaling" factor.</p>
+            <p>Here's another way to look at this - let <math><mrow><mi>v</mi></mrow></math> be a vector that we want to transform using the linear transformation <math><mrow><mi>A</mi></mrow></math>. This is simply shown as:</p>
+            <p><math><mrow><mi>A</mi><mi>v</mi><mo>=</mo><mi>x</mi></mrow></math></p>
+            <p>If we split the resulting vector <math><mrow><mi>x</mi></mrow></math> as a scalar value with a unit vector, we shall get:</p>
+            <p><math><mrow><mi>A</mi><mi>v</mi><mo>=</mo><mi>σ</mi><mi>u</mi></mrow></math></p>
+            <p>Imagine that now instead of just transforming 1 vector, we are going to transform a series of vectors using this expression:</p>
+            <div style="overflow: auto; scrollbar-width: none;">
+
+                <math>
+                    <mrow>
+                        <mi>A</mi>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub><mi>v</mi><mi>1</mi></msub></mtd>
+                                <mtd><msub><mi>v</mi><mi>2</mi></msub></mtd>
+                                <mtd><mn>...</mn></mtd>
+                                <mtd><msub><mi>v</mi><mi>n</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>=</mo><mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub><mi>u</mi><mi>1</mi></msub></mtd>
+                                <mtd><msub><mi>u</mi><mi>2</mi></msub></mtd>
+                                <mtd><mn>...</mn></mtd>
+                                <mtd><msub><mi>u</mi><mi>n</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub><mi>σ</mi><mi>1</mi></msub></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd><msub><mi>σ</mi><mi>2</mi></msub></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd>...</mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><msub><mi>σ</mi><mi>n</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                    </mrow>
+                </math>
+            </div>
+            <p>which can be re-arranged as</p>
+            <p><math><mrow><mi>A</mi><mi>V</mi><mo>=</mo><mi>U</mi><mi>Σ</mi></mrow></math></p>
+            <p><math><mrow><mi>A</mi><mo>=</mo><mi>U</mi><mi>Σ</mi><msup><mi>V</mi><mi>T</mi></msup></mrow></math></p>
+            <p>But why does SVD matter? Because it exposes some interesting properties that can be used to solve an array of problems!</p>
+            <h3>Dimensionality Reduction and Compression</h3>
+            <p>Consider this Rank(1) matrix</p>
+            <p>This matrix is of Rank(1) because it only has 1 lineary independent column vector. By decomposing this bigger matrix to 2 smaller ones, we represent the same matrix with less data (16 vs just 8 numbers!). This becomes significant when we have a bigger, more complex matrix.</p>
+            <p>Now imagine we have a higher ranked matrix A. We cannot simply reduce it into a multiplication of a single row matrix and a single column matrix. But what we can do is to <b>approximate</b> A by using a sum of ranked 1 matrices like so:</p>
+
         </main>
         <script>
             // ==== START OF REACTIVE LIBRARY ====
@@ -203,6 +310,90 @@
             }
             // ==== END OF REACTIVE LIBRARY ====
 
+            function sketch2(p) {
+                let _canvasWidth;
+                let _currentStep = 0;
+                let _step1z = 0, _step2X = 1, _step2Y = 1, _step3z = 0;
+                let timeout = undefined;
+
+                p.setup = function() {
+                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    let canvas = p.createCanvas(_canvasWidth, _canvasWidth * 9/16, p.WEBGL);
+                    canvas.parent('sketch-holder-2');
+                    p.angleMode(p.DEGREES);
+                }
+    
+                p.windowResized = function() {
+                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    p.resizeCanvas(_canvasWidth, _canvasWidth * 9/16);
+                }
+
+                p.draw = function() {
+                    p.background(0);
+                    p.ortho();
+                    
+                    // Draw axes
+                    p.strokeWeight(3);
+                    p.stroke(255, 0, 0);
+                    p.fill(255); 
+                    p.line(-_canvasWidth, 0, 0, _canvasWidth, 0, 0);
+                    p.stroke(0, 255, 0);
+                    p.line(0, -_canvasWidth, 0, 0, _canvasWidth, 0);
+                    
+                    // Draw target-box
+                    p.push();
+                    p.strokeWeight(4);
+                    p.noFill();
+                    p.stroke(111, 111, 111);
+                    p.rotateZ(45);
+                    p.scale(1.5, 0.5, 1);
+                    p.rotateZ(45);
+                    p.box(_canvasWidth / 4);
+                    p.pop();
+
+                    // Draw control box
+                    p.push();
+                    p.strokeWeight(8);
+                    p.noFill();
+                    p.stroke(255, 255, 255);
+
+                    if(_currentStep === 0) {
+                        if (_step1z === 45 ) _currentStep++;
+                        else _step1z = Math.min(_step1z + 1, 45);
+                    }
+
+                    if (_currentStep === 1) {
+                        if (_step2X === 1.5) _currentStep++;
+                        else {
+                            _step2X = Math.min(_step2X + 0.01, 1.5);
+                            _step2Y = Math.max(_step2Y - 0.01, 0.5);
+                        }
+                    }
+                    
+                    if(_currentStep === 2) {
+                        if (_step3z === 45 ) _currentStep++;
+                        else _step3z = Math.min(_step3z + 1, 45);
+                    }
+                    
+                    if (_currentStep === 3) {
+                        p.stroke(255, 255, 0);
+                        if (!timeout) {
+                            timeout = setTimeout(() => {
+                                _currentStep = 0;
+                                _step1z = 0; _step2X = 1; _step2Y = 1; _step3z = 0;
+                                timeout = undefined;
+                            }, 2000);
+                        }
+                    }
+
+                    p.rotateZ(_step1z);
+                    p.scale(_step2X, _step2Y, 1);
+                    p.rotateZ(_step3z);
+                    p.box(_canvasWidth / 4);
+                    p.pop();
+                }
+            }
+
             function sketch1(p) {
                 let _canvasWidth;
                 let _tm = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]; // "transform matrix"
@@ -232,19 +423,17 @@
                     if (p.keyIsDown(65))      _tm = matrixMult(scaleMatrix(0.989, 1, 1), _tm);    // A
                     if (p.keyIsDown(65 + 22))  _tm = matrixMult(scaleMatrix(1, 1.01, 1), _tm);    // S
                     if (p.keyIsDown(65 + 3))  _tm = matrixMult(scaleMatrix(1.01, 1, 1), _tm);;    // D
-                    if (p.keyIsDown(65 + 16)) _tm = matrixMult(zRotMatrix(2), _tm);               // Q
-                    if (p.keyIsDown(65 + 4))  _tm = matrixMult(zRotMatrix(-2), _tm);              // E
+                    if (p.keyIsDown(65 + 16)) _tm = matrixMult(zRotMatrix(0.05), _tm);               // Q
+                    if (p.keyIsDown(65 + 4))  _tm = matrixMult(zRotMatrix(-0.05), _tm);              // E
                     // Reset with R key
                     if (p.keyIsDown(65 + 17)) {
                         _tm = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
-                        setup();
                     }
                     if (originalTm != _tm) {
                         updateListeners("_tm", fixDecimalPlaces(_tm, 2));
                     }
                     
                     // Draw axes
-                    
                     p.strokeWeight(3);
                     p.stroke(255, 0, 0);
                     p.fill(255); 
@@ -280,33 +469,34 @@
             }
 
             new p5(sketch1);
+            new p5(sketch2);
 
             // ==== START OF MATRIX LIBRARY ====
 
             function xRotMatrix(th) {
                 return [
-                    [1,     0,          0,          0],
-                    [0,     cos(th),    -sin(th),   0],
-                    [0,     sin(th),    cos(th),    0],
-                    [0,     0,          0,          1]
+                    [1,     0,              0,              0],
+                    [0,     Math.cos(th),   -Math.sin(th),  0],
+                    [0,     Math.sin(th),   Math.cos(th),   0],
+                    [0,     0,              0,              1]
                 ];
             }
 
             function yRotMatrix(th) {
                 return [
-                    [cos(th),   0,      sin(th),    0],
-                    [0,         1,      0,          0],
-                    [-sin(th),  0,      cos(th),    0],
-                    [0,         0,      0,          1]
+                    [Math.cos(th),  0,      Math.sin(th),   0],
+                    [0,             1,      0,              0],
+                    [-Math.sin(th), 0,      Math.cos(th),   0],
+                    [0,             0,      0,              1]
                 ];
             }
 
             function zRotMatrix(th) {
                 return [
-                    [cos(th),   -sin(th),   0,      0],
-                    [sin(th),   cos(th),    0,      0],
-                    [0,         0,          1,      0],
-                    [0,         0,          0,      1]
+                    [Math.cos(th),  -Math.sin(th),  0,      0],
+                    [Math.sin(th),  Math.cos(th),   0,      0],
+                    [0,             0,              1,      0],
+                    [0,             0,              0,      1]
                 ];
             }
 
