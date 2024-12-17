@@ -31,10 +31,21 @@
             <h1>Singular Value Decomposition</h1>
             <p>Published: Dec 2024</p>
             <h3>Introducing SVD using linear transformations</h3>
-            <p>From Wikipedia: "In linear algebra, the <b>singular value decomposition (SVD)</b> is a factorization of a real or complex matrix into a <b>rotation</b>, followed by a <b>rescaling</b>, followed by <b>another rotation</b>."</p>
-            <p>In other words, we <b>only need 3 matrices</b> to form any complex matrix. If we visualize this complex matrix as a linear transformation, we can see it as:</p>
+            <p>
+                From Wikipedia: "In linear algebra, the <b>singular value decomposition (SVD)</b> 
+                is a factorization of a real or complex matrix into a <b>rotation</b>, 
+                followed by a <b>rescaling</b>, followed by <b>another rotation</b>."
+            </p>
+            <p>
+                In other words, we <b>only need 3 matrices</b> to form any complex matrix. 
+                If we visualize this complex matrix as a linear transformation, we can see it as:
+            </p>
             <math><mrow><mi>A</mi><mo>=</mo><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub></mrow></math>
-            <p>Here is a little interactive visualization of this observation in action - try and transform the white square to fit the skewed grey shape with just the <b>rotation > scale > rotation</b> operations.</p>
+            <p>
+                Here is a little interactive visualization of this observation in action - 
+                try and transform the white square to fit the skewed grey shape with just the 
+                <b>rotation > scale > rotation</b> operations.
+            </p>
             <p><b>Press keys WASD to scale, QE to rotate, and R to reset.</b></p>
             <p id="sketch-holder-1"></p>
             <div>
@@ -56,9 +67,18 @@
                     </mrow>
                 </math> 
             </div>
-            <p>That is perhaps a tricky execerise, so if the point hasn't been brought across, here is the white square transforming to fit the skewed grey shape by following a sequence of 3 matrix operations.</p>
+            <p>
+                That is perhaps a tricky execerise, so if the point hasn't been brought across, 
+                here is the white square transforming to fit the skewed grey shape by following 
+                a sequence of 3 matrix operations.
+            </p>
             <p id="sketch-holder-2"></p>
-            <p>First, we shall rotate by <math><mrow><msub><mi>R</mi><mi>1</mi></msub></mrow></math> = 45°, then we scale by <math><mrow><mi>S</mi></mrow></math> = (1.5, 0.5, 1.0), then we rotate again by <math><mrow><msub><mi>R</mi><mi>2</mi></msub></mrow></math> = 45°. This is represented by the following expression:</p>
+            <p>
+                First, we shall rotate by <math><mrow><msub><mi>R</mi><mi>1</mi></msub></mrow></math> = 45°, 
+                then we scale by <math><mrow><mi>S</mi></mrow></math> = (1.5, 0.5, 1.0), then we rotate again by 
+                <math><mrow><msub><mi>R</mi><mi>2</mi></msub></mrow></math> = 45°. 
+                This is represented by the following expression:
+            </p>
             <div style="overflow: auto; scrollbar-width: none;">
                 <math>
                     <mrow>
@@ -162,15 +182,29 @@
                     </mrow>
                 </math>
             </div>
-            <p>When we compare this with <math><mrow><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub></mrow></math>, we see that <math><mrow><mi>U</mi></mrow></math> and <math><mrow><mi>V</mi></mrow></math> are orthonormal matrices, i.e. it is made up of perpendicular unit vectors, or a set of linearly independent vectors.</p>
-            <p>And when we look at <math><mrow><mi>S</mi></mrow></math>, we see that <math><mrow><mi>Σ</mi></mrow></math> is a diagonal matrix that represents a "scaling" factor.</p>
-            <p>Here's another way to look at this - let <math><mrow><mi>v</mi></mrow></math> be a vector that we want to transform using the linear transformation <math><mrow><mi>A</mi></mrow></math>. This is simply shown as:</p>
+            <p>
+                When we compare this with 
+                <math><mrow><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub></mrow></math>, 
+                we see that <math><mrow><mi>U</mi></mrow></math> and <math><mrow><mi>V</mi></mrow></math> are orthonormal matrices, 
+                i.e. it is made up of perpendicular unit vectors, or a set of linearly independent vectors that are 
+                <math><mo>{</mo><msub><mi>u</mi><mi>1</mi></msub><mi>...</mi><msub><mi>u</mi><mi>n</mi></msub><mo>}</mo></math> and 
+                <math><mo>{</mo><msub><mi>v</mi><mi>1</mi></msub><mi>...</mi><msub><mi>v</mi><mi>n</mi></msub><mo>}</mo></math>.
+            </p>
+            <p>
+                And when we look at <math><mrow><mi>S</mi></mrow></math>, 
+                we see that <math><mrow><mi>Σ</mi></mrow></math> 
+                is a diagonal matrix that represents a "scaling" factor.
+            </p>
+            <p>
+                Here's another way to look at this - let <math><mrow><mi>v</mi></mrow></math> 
+                be a vector that we want to transform using the linear transformation 
+                <math><mrow><mi>A</mi></mrow></math>. This is simply shown as:
+            </p>
             <p><math><mrow><mi>A</mi><mi>v</mi><mo>=</mo><mi>x</mi></mrow></math></p>
             <p>If we split the resulting vector <math><mrow><mi>x</mi></mrow></math> as a scalar value with a unit vector, we shall get:</p>
             <p><math><mrow><mi>A</mi><mi>v</mi><mo>=</mo><mi>σ</mi><mi>u</mi></mrow></math></p>
             <p>Imagine that now instead of just transforming 1 vector, we are going to transform a series of vectors using this expression:</p>
             <div style="overflow: auto; scrollbar-width: none;">
-
                 <math>
                     <mrow>
                         <mi>A</mi>
@@ -233,8 +267,16 @@
             <p>But why does SVD matter? Because it exposes some interesting properties that can be used to solve an array of problems!</p>
             <h3>Dimensionality Reduction and Compression</h3>
             <p>Consider this Rank(1) matrix</p>
-            <p>This matrix is of Rank(1) because it only has 1 lineary independent column vector. By decomposing this bigger matrix to 2 smaller ones, we represent the same matrix with less data (16 vs just 8 numbers!). This becomes significant when we have a bigger, more complex matrix.</p>
-            <p>Now imagine we have a higher ranked matrix A. We cannot simply reduce it into a multiplication of a single row matrix and a single column matrix. But what we can do is to <b>approximate</b> A by using a sum of ranked 1 matrices like so:</p>
+            <p>
+                This matrix is of Rank(1) because it only has 1 lineary independent column vector. 
+                By decomposing this bigger matrix to 2 smaller ones, we represent the same matrix with less data (16 vs just 8 numbers!). 
+                This becomes significant when we have a bigger, more complex matrix.
+            </p>
+            <p>
+                Now imagine we have a higher ranked matrix A. 
+                We cannot simply reduce it into a multiplication of a single row matrix and a single column matrix. 
+                But what we can do is to <b>approximate</b> A by using a sum of ranked 1 matrices like so:
+            </p>
 
         </main>
         <script>
