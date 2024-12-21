@@ -279,79 +279,9 @@
             </p>
 
         </main>
+        <script src="lib/ksdom.js"></script>
+        <script src="lib/ksmath.js"></script>
         <script>
-            // ==== START OF REACTIVE LIBRARY ====
-            let listeners = [];
-
-            document.querySelectorAll('body main *').forEach(element => {
-                let rootNode = element.childNodes[0];
-                if (!rootNode || !rootNode.nodeValue) return;
-                let textContent = rootNode.textContent.trim();
-                if (textContent.includes("\{\{") && textContent.includes("}}")) {
-                    var variables = getHTMLInLineVariables(textContent);
-                    if (variables.length === 0) return;
-                    variablesValues = [];
-                    variables.forEach(variable => variablesValues[variable] = undefined);
-                    listeners.push({ element: rootNode, content: textContent, variables: variablesValues });
-                }
-            });
-
-            function getHTMLInLineVariables(str) 
-            { 
-                let result = [];
-                let openBracesIndex = -1;
-                for(let i = 0; i < str.length; i++) { 
-                    // If opening delimiter is encountered 
-                    if (str.substring(i, i + 2) === "\{\{" && openBracesIndex === -1)
-                        openBracesIndex = i;
-                    // If closing delimiter is encountered 
-                    else if (str.substring(i, i + 2) === "}}" && openBracesIndex > -1) {
-                        let substring = str.substring(openBracesIndex + 2, i);
-                        result.push(substring);
-                        openBracesIndex = -1;
-                    } 
-                }
-                return result;
-            }
-
-            function updateListeners(variableName, newValue) {
-                let updatedListeners = [];
-                listeners.forEach(listener => {
-                    let isUpdated = false;
-                    Object.keys(listener.variables).forEach(variableKey => {
-                        let value = structuredClone(newValue);
-                        let keysArray = getKeysArray(variableKey.trim());
-                        if (keysArray[0] === variableName) {
-                            if (keysArray.length > 1)
-                                for(let i = 1; i < keysArray.length; i++)
-                                    value = value[keysArray[i]];
-                            isUpdated = true;
-                            listener.variables[variableKey] = value;
-                        }
-                    });
-                    if (isUpdated)
-                        updatedListeners.push(listener);
-                });
-                updatedListeners.forEach(listener => {
-                    let textContent = listener.content;
-                    Object.keys(listener.variables).forEach(variableKey =>
-                        textContent = textContent.replaceAll("\{\{" + variableKey + "}}", listener.variables[variableKey])
-                    );
-                    listener.element.textContent = textContent;
-                });
-            }
-
-            function getKeysArray(str) {
-                let results = [];
-                let values = str.split(".");
-                values.forEach(val => {
-                    if (!val.includes("[")) results.push(val);
-                    else val.split("[").forEach(val => results.push(val.replace("]", "")));
-                });
-                return results;
-            }
-            // ==== END OF REACTIVE LIBRARY ====
-
             function sketch2(p) {
                 let _canvasWidth;
                 let _currentStep = 0;
@@ -440,7 +370,7 @@
                 let _canvasWidth;
                 let _tm = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]; // "transform matrix"
     
-                updateListeners("_tm", fixDecimalPlaces(_tm, 2));
+                KSDom.updateListeners("_tm", KSMath.Matrix.toFixed(_tm, 2));
     
                 p.setup = function() {
                     _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
@@ -461,18 +391,18 @@
                     
                     // Handle controls
                     let originalTm = _tm;
-                    if (p.keyIsDown(65 + 18)) _tm = matrixMult(scaleMatrix(1, 0.989, 1), _tm);    // W
-                    if (p.keyIsDown(65))      _tm = matrixMult(scaleMatrix(0.989, 1, 1), _tm);    // A
-                    if (p.keyIsDown(65 + 22))  _tm = matrixMult(scaleMatrix(1, 1.01, 1), _tm);    // S
-                    if (p.keyIsDown(65 + 3))  _tm = matrixMult(scaleMatrix(1.01, 1, 1), _tm);;    // D
-                    if (p.keyIsDown(65 + 16)) _tm = matrixMult(zRotMatrix(0.05), _tm);               // Q
-                    if (p.keyIsDown(65 + 4))  _tm = matrixMult(zRotMatrix(-0.05), _tm);              // E
+                    if (p.keyIsDown(65 + 18)) _tm = KSMath.Matrix.multiply(KSMath.Matrix.scale(1, 0.989, 1), _tm);    // W
+                    if (p.keyIsDown(65))      _tm = KSMath.Matrix.multiply(KSMath.Matrix.scale(0.989, 1, 1), _tm);    // A
+                    if (p.keyIsDown(65 + 22)) _tm = KSMath.Matrix.multiply(KSMath.Matrix.scale(1, 1.01, 1), _tm);     // S
+                    if (p.keyIsDown(65 + 3))  _tm = KSMath.Matrix.multiply(KSMath.Matrix.scale(1.01, 1, 1), _tm);;    // D
+                    if (p.keyIsDown(65 + 16)) _tm = KSMath.Matrix.multiply(KSMath.Matrix.rotateZ(0.05), _tm);         // Q
+                    if (p.keyIsDown(65 + 4))  _tm = KSMath.Matrix.multiply(KSMath.Matrix.rotateZ(-0.05), _tm);        // E
                     // Reset with R key
                     if (p.keyIsDown(65 + 17)) {
                         _tm = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]];
                     }
                     if (originalTm != _tm) {
-                        updateListeners("_tm", fixDecimalPlaces(_tm, 2));
+                        KSDom.updateListeners("_tm", KSMath.Matrix.toFixed(_tm, 2));
                     }
                     
                     // Draw axes
@@ -512,96 +442,6 @@
 
             new p5(sketch1);
             new p5(sketch2);
-
-            // ==== START OF MATRIX LIBRARY ====
-
-            function xRotMatrix(th) {
-                return [
-                    [1,     0,              0,              0],
-                    [0,     Math.cos(th),   -Math.sin(th),  0],
-                    [0,     Math.sin(th),   Math.cos(th),   0],
-                    [0,     0,              0,              1]
-                ];
-            }
-
-            function yRotMatrix(th) {
-                return [
-                    [Math.cos(th),  0,      Math.sin(th),   0],
-                    [0,             1,      0,              0],
-                    [-Math.sin(th), 0,      Math.cos(th),   0],
-                    [0,             0,      0,              1]
-                ];
-            }
-
-            function zRotMatrix(th) {
-                return [
-                    [Math.cos(th),  -Math.sin(th),  0,      0],
-                    [Math.sin(th),  Math.cos(th),   0,      0],
-                    [0,             0,              1,      0],
-                    [0,             0,              0,      1]
-                ];
-            }
-
-            function scaleMatrix(x, y, z) {
-                return [
-                    [x, 0, 0, 0], 
-                    [0, y, 0, 0], 
-                    [0, 0, z, 0], 
-                    [0, 0, 0, 1]
-                ];
-            }
-
-            function matrixMult(A, B) {
-                if(A[0].length !== B.length) 
-                    return "A col != B row"
-
-                l = A.length;      // Number of rows in A
-                m = A[0].length;   // Number of columns in A and number of rows in B
-                n = B[0].length;   // Number of columns in B
-                
-                let C = []
-
-                for(let i = 0; i < l; i++){
-                    C[i] = [];
-                    for(let j = 0; j < n; j++){
-                        C[i][j] = [];
-                    }
-                }
-                
-                for(let row = 0; row < l ; row++){
-                    for(let col = 0; col < n; col++){
-                        let v = [];
-                        let w = [];
-                        for(let i = 0; i < m ; i++) {
-                            v.push(A[row][i])
-                            w.push(B[i][col])
-                        }
-                        C[row][col] = dotProduct(v,w)
-                    }
-                }
-                return C;
-            }
-
-            function dotProduct(v, w) {
-                let sum = 0;
-                for (let i = 0; i < v.length; i++)
-                    sum += v[i] * w[i];
-                return sum;
-            }
-
-            function fixDecimalPlaces(mat, places) {
-                let result = [];
-                for(let row = 0; row < mat.length ; row++) {
-                    result[row] = [];
-                    for(let col = 0; col < mat[0].length; col++) {
-                        result[row][col] = mat[row][col];
-                        result[row][col] = result[row][col].toFixed(2);
-                    }
-                }    
-                return result;
-            }
-
-            // ==== END OF MATRIX LIBRARY ====
         </script>
     </body>
 </html>
