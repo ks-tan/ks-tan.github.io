@@ -45,7 +45,7 @@
             <math><mrow><mi>A</mi><mo>=</mo><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub></mrow></math>
             <p>
                 Here is a little interactive visualization of this observation in action - 
-                try and transform the white square to fit the skewed grey shape with just the 
+                try and transform the black square to fit the skewed grey shape with just the 
                 <b>rotation > scale > rotation</b> operations.
             </p>
             <p><b>Press keys WASD to scale, QE to rotate, and R to reset.</b></p>
@@ -70,14 +70,14 @@
                 </math> 
             </div>
             <p>
-                That is perhaps a tricky execerise, so if the point hasn't been brought across, 
-                here is the white square transforming to fit the skewed grey shape by following 
+                That is perhaps a tricky exercise, so if the point hasn't been brought across, 
+                here is the black square transforming to fit the skewed grey shape by following 
                 a sequence of 3 matrix operations.
             </p>
             <p id="sketch-holder-2"></p>
             <p>
                 First, we shall rotate by <math><mrow><msub><mi>R</mi><mi>1</mi></msub></mrow></math> = 45°, 
-                then we scale by <math><mrow><mi>S</mi></mrow></math> = (1.5, 0.5, 1.0), then we rotate again by 
+                then we scale by <math><mrow><mi>S</mi></mrow></math> = (1.5, 0.1, 1.0), then we rotate again by 
                 <math><mrow><msub><mi>R</mi><mi>2</mi></msub></mrow></math> = 45°. 
                 This is represented by the following expression:
             </p>
@@ -106,7 +106,7 @@
                             </mtr>
                             <mtr>
                                 <mtd><mn>0</mn></mtd>
-                                <mtd><mn>0.5</mn></mtd>
+                                <mtd><mn>0.1</mn></mtd>
                             </mtr>
                         </mtable>
                         <mo>]</mo>
@@ -266,23 +266,293 @@
             <p>which can be re-arranged as</p>
             <p><math><mrow><mi>A</mi><mi>V</mi><mo>=</mo><mi>U</mi><mi>Σ</mi></mrow></math></p>
             <p><math><mrow><mi>A</mi><mo>=</mo><mi>U</mi><mi>Σ</mi><msup><mi>V</mi><mi>T</mi></msup></mrow></math></p>
-            <p>But why does SVD matter? Because it exposes some interesting properties that can be used to solve an array of problems!</p>
-            <h3>Dimensionality Reduction and Compression</h3>
-            <p>Consider this Rank(1) matrix</p>
+            <p>But why does SVD matter? Because it exposes some interesting properties that can be used to solve a variety of problems!</p>
+            <h3>Dimensionality Reduction and Data Compression</h3>
+            <p>Consider this rank 1 matrix</p>
+            <div style="overflow: auto; scrollbar-width: none;">
+                <math>
+                    <mrow>
+                        <mi>A</mi><mo>=</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><mi>1</mi></mtd>
+                                <mtd><mi>2</mi></mtd>
+                                <mtd><mi>3</mi></mtd>
+                                <mtd><mi>4</mi></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd><mi>-1</mi></mtd>
+                                <mtd><mi>-2</mi></mtd>
+                                <mtd><mi>-3</mi></mtd>
+                                <mtd><mi>-4</mi></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd><mi>2</mi></mtd>
+                                <mtd><mi>4</mi></mtd>
+                                <mtd><mi>6</mi></mtd>
+                                <mtd><mi>8</mi></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd><mi>10</mi></mtd>
+                                <mtd><mi>20</mi></mtd>
+                                <mtd><mi>30</mi></mtd>
+                                <mtd><mi>40</mi></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>=</mo>
+                        <mo style="color:brown">[</mo>
+                        <mtable style="color:brown">
+                            <mtr><mtd><mi>1</mi></mtd></mtr>
+                            <mtr><mtd><mi>-1</mi></mtd></mtr>
+                            <mtr><mtd><mi>2</mi></mtd></mtr>
+                            <mtr><mtd><mi>10</mi></mtd></mtr>
+                        </mtable>
+                        <mo style="color:brown">]</mo>
+                        <mo>*</mo>
+                        <mo style="color:cadetblue">[</mo>
+                        <mtable style="color:cadetblue">
+                            <mtr>
+                                <mtd><mi>1</mi></mtd>
+                                <mtd><mi>2</mi></mtd>
+                                <mtd><mi>3</mi></mtd>
+                                <mtd><mi>4</mi></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo style="color:cadetblue">]</mo>
+                        <mo>=</mo><mi style="color:brown">u</mi><mo>*</mo><msup style="color:cadetblue"><mi>v</mi><mi>T</mi></msup>
+                    </mrow>
+                </math>
+            </div>
             <p>
-                This matrix is of Rank(1) because it only has 1 lineary independent column vector. 
-                By decomposing this bigger matrix to 2 smaller ones, we represent the same matrix with less data (16 vs just 8 numbers!). 
+                This matrix is of rank = 1 because it only has 1 lineary independent column vector. 
+                By decomposing this bigger matrix to 2 smaller ones <math style="color:brown"><mrow><mi>u</mi></mrow></math> and <math><mrow><msup style="color:cadetblue"><mi>v</mi><mi>T</mi></msup></mrow></math>, we represent the same matrix with less data (16 vs just 8 numbers!). 
                 This becomes significant when we have a bigger, more complex matrix.
             </p>
             <p>
+                Hence the idea is - when we factorize a complex matrix, we can compress the amount of data required to represent it! In this case, we have achieved lossless compression.
+            </p>
+            <p>
                 Now imagine we have a higher ranked matrix A. 
-                We cannot simply reduce it into a multiplication of a single row matrix and a single column matrix. 
+                We cannot simply reduce it into a multiplication of 1 pair of row matrix and column matrix. 
                 But what we can do is to <b>approximate</b> A by using a sum of ranked 1 matrices like so:
             </p>
-
+            <p style="overflow: auto; scrollbar-width: none;">
+                <math>
+                    <mrow>
+                        <mi>A</mi><mo>=</mo>
+                        <msub><mi>σ</mi><mi>1</mi></msub><msub style="color:brown"><mi>u</mi><mi>1</mi></msub><msup style="color:cadetblue"><msub><mi>v</mi><mi>1</mi></msub><mi>T</mi></msup><mo>+</mo>
+                        <msub><mi>σ</mi><mi>2</mi></msub><msub style="color:brown"><mi>u</mi><mi>2</mi></msub><msup style="color:cadetblue"><msub><mi>v</mi><mi>2</mi></msub><mi>T</mi></msup><mo>+</mo>
+                        <mi>... ...</mi><mo>+</mo>
+                        <msub><mi>σ</mi><mi>n</mi></msub><msub style="color:brown"><mi>u</mi><mi>n</mi></msub><msup style="color:cadetblue"><msub><mi>v</mi><mi>n</mi></msub><mi>T</mi></msup>
+                    </mrow>
+                </math>
+            </p>
+            <p style="overflow: auto; scrollbar-width: none;">
+                <math>
+                    <mrow>
+                        <mo>=</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub style="color:brown"><mi>u</mi><mi>1</mi></msub></mtd>
+                                <mtd><msub style="color:brown"><mi>u</mi><mi>2</mi></msub></mtd>
+                                <mtd><mn style="color:brown">...</mn></mtd>
+                                <mtd><msub style="color:brown"><mi>u</mi><mi>n</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub><mi>σ</mi><mi>1</mi></msub></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd><msub><mi>σ</mi><mi>2</mi></msub></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd>...</mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><msub><mi>σ</mi><mi>n</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr><mtd><msup style="color:cadetblue"><msub><mi>v</mi><mi>1</mi></msub><mi>T</mi></msup></mtd></mtr>
+                            <mtr><mtd><msup style="color:cadetblue"><msub><mi>v</mi><mi>2</mi></msub><mi>T</mi></msup></mtd></mtr>
+                            <mtr><mtd><msup style="color:cadetblue"><mn>...</mn></mtd></mtr>
+                            <mtr><mtd><msup style="color:cadetblue"><msub><mi>v</mi><mi>n</mi></msub><mi>T</mi></msup></mtd></mtr>
+                        </mtable>
+                        <mo>]</mo>
+                    </mrow>
+                </math>
+            </p>
+            <p><math><mrow><mo>=</mo><mi>U</mi><mi>Σ</mi><msup><mi>V</mi><mi>T</mi></msup></mrow></math></p>
+            <p>Again, we arrive at the standard SVD expression.</p>
+            <p>
+                We see that <math><mi>Σ</mi></math> is a diagonal matrix consisting of scalar values "σ". These are known as <b>singular values</b>.
+                Each of them represents the "scale of influence" of its respective <b>left singular vector</b> <math><mi>u</mi></math> and <b>right singular vector</b> <math><mi>v</mi></math>
+                (i.e. a "singular vector pair").  
+            </p>
+            <p>
+                In <math><mi>Σ</mi></math>, these singular values are arranged in descending order of magnitude. This means that the singular vector pairs 
+                later in the sequence has less influence in approximating the complex matrix <math><mi>A</mi></math>.
+            </p>
+            <p>
+                This is a helpful property of SVD, as that means we can remove singular vector pairs that has the 
+                least influence (i.e. smallest singular values) in approximating <math><mi>A</mi></math>.
+                This helps us achieve lossy compression with minimal information loss!
+            </p>
+            <p>
+                In order to solidify this concept further, let us look at this interactive example that uses the same skewed parallelogram 
+                we had. <b>Use the slider to play with different values of <math><msub><mi>σ</mi><mi>2</mi></msub></math> and see how it changes the shape.</b>
+            </p>
+            <p id="sketch-holder-3"></p>
+            <p>
+                <label><math><msub><mi>σ</mi><mi>1</mi></msub></math></label>
+                <input type="range" min="0" max="100" value="100" class="slider" id="sketch-3-slide-s1">
+                <label>{{s3Sigma[0][0]}}</label>
+            </p>
+            <p>
+                <label><math><msub><mi>σ</mi><mi>2</mi></msub></math></label>
+                <input type="range" min="0" max="100" value="100" class="slider" id="sketch-3-slide-s2">
+                <label>{{s3Sigma[1][1]}}</label>
+            </p>
+            <p style="overflow: auto; scrollbar-width: none;">
+                <math>
+                    <mrow>
+                        <mi>A</mi><mo>=</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub><mi>u</mi><mi>1</mi></msub></mtd>
+                                <mtd><msub><mi>u</mi><mi>2</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd style="color:brown"><mn><msub><mi>σ</mi><mi>1</mi></msub></mn></mtd>
+                                <mtd><mn>0</mn></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd><mn>0</mn></mtd>
+                                <mtd style="color:brown"><mn><msub><mi>σ</mi><mi>2</mi></msub></mn></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr><mtd><msup><msub><mi>v</mi><mi>1</mi></msub><mi>T</mi></msup></mtd></mtr>
+                            <mtr><mtd><msup><msub><mi>v</mi><mi>2</mi></msub><mi>T</mi></msup></mtd></mtr>
+                        </mtable>
+                        <mo>]</mo>
+                    </mrow>
+                </math>
+            </p>
+            <p style="overflow: auto; scrollbar-width: none;">
+                <math>
+                    <mrow>
+                        <mo>=</mo><mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><mn>cos(45°)</mn></mtd>
+                                <mtd><mn>-sin(45°)</mn></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd><mn>sin(45°)</mn></mtd>
+                                <mtd><mn>cos(45°)</mn></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd style="color:brown"><mn>{{s3Sigma[0][0]}}</mn></mtd>
+                                <mtd><mn>0.00</mn></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd><mn>0.00</mn></mtd>
+                                <mtd style="color:brown"><mn>{{s3Sigma[1][1]}}</mn></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><mn>cos(45°)</mn></mtd>
+                                <mtd><mn>-sin(45°)</mn></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd><mn>sin(45°)</mn></mtd>
+                                <mtd><mn>cos(45°)</mn></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                    </mrow>
+                </math>
+            </p>
+            <p style="overflow: auto; scrollbar-width: none;">
+                <math>
+                    <mrow>
+                        <mo>=</mo><mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><mn>{{s3A[0][0]}}</mn></mtd>
+                                <mtd><mn>{{s3A[0][1]}}</mn></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd><mn>{{s3A[1][0]}}</mn></mtd>
+                                <mtd><mn>{{s3A[0][1]}}</mn></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                    </mrow>
+                </math>
+            </p>
+            <p>
+                We can see that when <math><msub><mi>σ</mi><mi>2</mi></msub><mo>=</mo><mi>0</mi></math>, the 
+                parallelogram is compressed into a line by removing the dimension that has the least variance.
+            </p>
+            <p>
+                Compare that with reducing the value of <math><msub><mi>σ</mi><mi>1</mi></msub></math> and you will see that 
+                adjusting the values of <math><msub><mi>σ</mi><mi>2</mi></msub></math> gets us a compression that is closer to the original graph,
+                i.e. having the least information loss.
+            </p>
+            <p>
+                Also note that the rank of <math><mi>Σ</mi></math> exposes the rank of A - we can see now that both the matrix
+                <math><mi>Σ</mi></math> and the approximated matrix A went from <b>rank = 2</b> to <b>rank = 1</b> 
+                (i.e. both matrices are made up of only 1 linearly independent column vector now). 
+                This can be seen in how we turned a 2D parallelogram into a 1D line! This is known as <b>dimensionality reduction</b>.
+            </p>
+            <p>
+                Let us now visualize this concept using this example of image compression!
+            </p>
         </main>
-        <script src="lib/ksdom.js"></script>
-        <script src="lib/ksmath.js"></script>
+        <script src="lib/ksdom_v0.1.js"></script>
+        <script src="lib/ksmath_v0.1.js"></script>
         <script>
             function sketch2(p) {
                 let _canvasWidth;
@@ -303,11 +573,11 @@
                 }
 
                 p.draw = function() {
-                    p.background(0);
+                    p.background(255);
                     p.ortho();
                     
                     // Draw axes
-                    p.strokeWeight(3);
+                    p.strokeWeight(5);
                     p.stroke(255, 0, 0);
                     p.fill(255); 
                     p.line(-_canvasWidth, 0, 0, _canvasWidth, 0, 0);
@@ -316,11 +586,11 @@
                     
                     // Draw target-box
                     p.push();
-                    p.strokeWeight(4);
+                    p.strokeWeight(5);
                     p.noFill();
-                    p.stroke(111, 111, 111);
+                    p.stroke(200, 200, 200);
                     p.rotateZ(45);
-                    p.scale(1.5, 0.5, 1);
+                    p.scale(1.5, 0.1, 1);
                     p.rotateZ(45);
                     p.box(_canvasWidth / 4);
                     p.pop();
@@ -329,7 +599,7 @@
                     p.push();
                     p.strokeWeight(8);
                     p.noFill();
-                    p.stroke(255, 255, 255);
+                    p.stroke(0, 0, 0);
 
                     if(_currentStep === 0) {
                         if (_step1z === 45 ) _currentStep++;
@@ -340,7 +610,7 @@
                         if (_step2X === 1.5) _currentStep++;
                         else {
                             _step2X = Math.min(_step2X + 0.01, 1.5);
-                            _step2Y = Math.max(_step2Y - 0.01, 0.5);
+                            _step2Y = Math.max(_step2Y - 0.02, 0.1);
                         }
                     }
                     
@@ -350,7 +620,7 @@
                     }
                     
                     if (_currentStep === 3) {
-                        p.stroke(255, 255, 0);
+                        p.stroke(0, 0, 255);
                         if (!timeout) {
                             timeout = setTimeout(() => {
                                 _currentStep = 0;
@@ -367,6 +637,7 @@
                     p.pop();
                 }
             }
+            new p5(sketch1);
 
             function sketch1(p) {
                 let _canvasWidth;
@@ -387,7 +658,7 @@
                 }
     
                 p.draw = function() {
-                    p.background(0);
+                    p.background(255);
                     
                     p.ortho();
                     
@@ -408,7 +679,7 @@
                     }
                     
                     // Draw axes
-                    p.strokeWeight(3);
+                    p.strokeWeight(5);
                     p.stroke(255, 0, 0);
                     p.fill(255); 
                     p.line(-_canvasWidth, 0, 0, _canvasWidth, 0, 0);
@@ -419,9 +690,9 @@
                     p.push();
                     p.strokeWeight(4);
                     p.noFill();
-                    p.stroke(111, 111, 111);
+                    p.stroke(200, 200, 200);
                     p.rotateZ(45);
-                    p.scale(1.5, 0.5, 1);
+                    p.scale(1.5, 0.1, 1);
                     p.rotateZ(45);
                     p.box(_canvasWidth / 4);
                     p.pop();
@@ -430,7 +701,7 @@
                     p.push();
                     p.strokeWeight(8);
                     p.noFill();
-                    p.stroke(255, 255, 255);
+                    p.stroke(0);
                     p.applyMatrix(
                         _tm[0][0], _tm[0][1], _tm[0][2], _tm[0][3],
                         _tm[1][0], _tm[1][1], _tm[1][2], _tm[1][3],
@@ -441,9 +712,77 @@
                     p.pop();
                 }
             }
-
-            new p5(sketch1);
             new p5(sketch2);
+
+            function sketch3(p) {
+                const slider1 = document.getElementById("sketch-3-slide-s1");
+                const slider2 = document.getElementById("sketch-3-slide-s2");
+
+                const UV = [
+                    [Math.cos(KSMath.toRadians(45)), -Math.sin(KSMath.toRadians(45))], 
+                    [Math.sin(KSMath.toRadians(45)), Math.cos(KSMath.toRadians(45))]
+                ];
+
+                let S = [[1.5, 0], [0, 0.1]];
+
+                function calculateA() {  
+                    return KSMath.Matrix.multiply(KSMath.Matrix.multiply(UV, S), UV); 
+                }
+
+                KSDom.updateListeners("s3Sigma", KSMath.Matrix.toFixed(S, 2));
+                KSDom.updateListeners("s3A", KSMath.Matrix.toFixed(calculateA(), 2));
+                
+                slider1.addEventListener('input', () => {
+                    S[0][0] = slider1.value / 100 * 1.5;
+                    KSDom.updateListeners("s3Sigma", KSMath.Matrix.toFixed(S, 2));
+                    KSDom.updateListeners("s3A", KSMath.Matrix.toFixed(calculateA(), 2));
+                });
+
+                slider2.addEventListener('input', () => {
+                    S[1][1] = slider2.value / 1000;
+                    KSDom.updateListeners("s3Sigma", KSMath.Matrix.toFixed(S, 2));
+                    KSDom.updateListeners("s3A", KSMath.Matrix.toFixed(calculateA(), 2));
+                });
+
+                let _canvasWidth;
+    
+                p.setup = function() {
+                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    let canvas = p.createCanvas(_canvasWidth, _canvasWidth * 9/16, p.WEBGL);
+                    canvas.parent('sketch-holder-3');
+                    p.angleMode(p.DEGREES);
+                }
+    
+                p.windowResized = function() {
+                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    p.resizeCanvas(_canvasWidth, _canvasWidth * 9/16);
+                }
+
+                p.draw = function() {
+                    p.background(255);
+                    p.ortho();
+                    
+                    // Draw axes
+                    p.strokeWeight(5);
+                    p.stroke(255, 0, 0);
+                    p.fill(255); 
+                    p.line(-_canvasWidth, 0, 0, _canvasWidth, 0, 0);
+                    p.stroke(0, 255, 0);
+                    p.line(0, -_canvasWidth, 0, 0, _canvasWidth, 0);
+                    
+                    // Draw target-box
+                    p.push();
+                    p.strokeWeight(8);
+                    p.noFill();
+                    p.stroke(0);
+                    p.rotateZ(45);
+                    p.scale(S[0][0], S[1][1], 1);
+                    p.rotateZ(45);
+                    p.box(_canvasWidth / 4);
+                    p.pop();
+                }
+            }
+            new p5(sketch3);
         </script>
     </body>
 </html>
