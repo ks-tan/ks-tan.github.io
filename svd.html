@@ -173,12 +173,10 @@
                         <mo>*</mo>
                         <mo>[</mo>
                         <mtable>
-                            <mtr>
-                                <mtd><msup><msub><mi>v</mi><mi>1</mi></msub><mi>T</mi></msup></mtd>
-                                <mtd><msup><msub><mi>v</mi><mi>2</mi></msub><mi>T</mi></msup></mtd>
-                                <mtd><mn>...</mn></mtd>
-                                <mtd><msup><msub><mi>v</mi><mi>n</mi></msub><mi>T</mi></msup></mtd>
-                            </mtr>
+                            <mtr><mtd><msup><msub><mi>v</mi><mi>1</mi></msub><mi>T</mi></msup></mtd></mtr>
+                            <mtr><mtd><msup><msub><mi>v</mi><mi>2</mi></msub><mi>T</mi></msup></mtd></mtr>
+                            <mtr><mtd><msup><mn>...</mn></mtd></mtr>
+                            <mtr><mtd><msup><msub><mi>v</mi><mi>n</mi></msub><mi>T</mi></msup></mtd></mtr>
                         </mtable>
                         <mo>]</mo>
                     </mrow>
@@ -548,11 +546,579 @@
                 This can be seen in how we turned a 2D parallelogram into a 1D line! This is known as <b>dimensionality reduction</b>.
             </p>
             <p>
-                Let us now visualize this concept using this example of image compression!
+                Let us now visualize this concept using this example of image compression.
+                Adjust the "quality" slider to see how it changes the image!
+            </p>
+            <p id="sketch-holder-4"></p>
+            <p>
+                <label>Quality</label>
+                <input type="range" min="0" max="10" value="10" class="slider" id="sketch-4-slide">
+                <label>{{s4Slider}}</label>
+            </p>
+            <p style="overflow: auto; scrollbar-width: none;">
+                <math style="font-size: 1.25vw;">
+                    <mrow>
+                        <mi>Σ</mi><mo>=</mo><mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><mi>{{s4s[0][0]}}</mi></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd><mi>{{s4s[1][1]}}</mi></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><mi>{{s4s[2][2]}}</mi></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><mi>{{s4s[3][3]}}</mi></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><mi>{{s4s[4][4]}}</mi></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><mi>{{s4s[5][5]}}</mi></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><mi>{{s4s[6][6]}}</mi></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><mi>{{s4s[7][7]}}</mi></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><mi>{{s4s[8][8]}}</mi></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><mi>{{s4s[9][9]}}</mi></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                    </mrow>
+                </math>
+            </p>
+            <p>
+                In the image matrix, we can tell that out of 10 column vectors, there are only 5
+                that are linearly independent. This is because the left half of the image is the same as the right half.
+            </p>
+            <p>
+                Hence <math><mrow><mi>Σ</mi></mrow></math> and the image matrix are both of rank = 5 (the last 5 singular values σ are 0), i.e. 
+                there is no change to the image when we adjust the "quality" slider between 50% - 100%. But the change to the image quality gets
+                increasingly visible as the affected singular value gets bigger.
+            </p>
+            <h3>Finding correlations using SVD</h3>
+            <h3>Solving linear systems</h3>
+            <h3>Summary</h3>
+            <p>1. All complex matrices can be factorized into 3 separate matrices using the SVD as such:</p>
+            <p style="overflow: auto; scrollbar-width: none;">
+                <math>
+                    <mrow>
+                        <mi>A</mi><mo>=</mo>
+                        <msub><mi>σ</mi><mi>1</mi></msub><msub style="color:brown"><mi>u</mi><mi>1</mi></msub><msup style="color:cadetblue"><msub><mi>v</mi><mi>1</mi></msub><mi>T</mi></msup><mo>+</mo>
+                        <msub><mi>σ</mi><mi>2</mi></msub><msub style="color:brown"><mi>u</mi><mi>2</mi></msub><msup style="color:cadetblue"><msub><mi>v</mi><mi>2</mi></msub><mi>T</mi></msup><mo>+</mo>
+                        <mi>... ...</mi><mo>+</mo>
+                        <msub><mi>σ</mi><mi>n</mi></msub><msub style="color:brown"><mi>u</mi><mi>n</mi></msub><msup style="color:cadetblue"><msub><mi>v</mi><mi>n</mi></msub><mi>T</mi></msup>
+                    </mrow>
+                </math>
+            </p>
+            <p style="overflow: auto; scrollbar-width: none;">
+                <math>
+                    <mrow>
+                        <mo>=</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub style="color:brown"><mi>u</mi><mi>1</mi></msub></mtd>
+                                <mtd><msub style="color:brown"><mi>u</mi><mi>2</mi></msub></mtd>
+                                <mtd><mn style="color:brown">...</mn></mtd>
+                                <mtd><msub style="color:brown"><mi>u</mi><mi>n</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr>
+                                <mtd><msub><mi>σ</mi><mi>1</mi></msub></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd><msub><mi>σ</mi><mi>2</mi></msub></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd>...</mtd>
+                                <mtd></mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd></mtd>
+                                <mtd><msub><mi>σ</mi><mi>n</mi></msub></mtd>
+                            </mtr>
+                        </mtable>
+                        <mo>]</mo>
+                        <mo>*</mo>
+                        <mo>[</mo>
+                        <mtable>
+                            <mtr><mtd><msup style="color:cadetblue"><msub><mi>v</mi><mi>1</mi></msub><mi>T</mi></msup></mtd></mtr>
+                            <mtr><mtd><msup style="color:cadetblue"><msub><mi>v</mi><mi>2</mi></msub><mi>T</mi></msup></mtd></mtr>
+                            <mtr><mtd><msup style="color:cadetblue"><mn>...</mn></mtd></mtr>
+                            <mtr><mtd><msup style="color:cadetblue"><msub><mi>v</mi><mi>n</mi></msub><mi>T</mi></msup></mtd></mtr>
+                        </mtable>
+                        <mo>]</mo>
+                    </mrow>
+                </math>
+            </p>
+            <p><math><mrow><mo>=</mo><mi>U</mi><mi>Σ</mi><msup><mi>V</mi><mi>T</mi></msup></mrow></math></p>
+            <p>
+                2. <math><mi>Σ</mi></math> is a diagonal matrix with "singular values" σ arranged in descending order of magnitude.
+                They represent the scale of influence of corresponding singular vector pairs (<math><mi>u</mi></math>, <math><mi>v</mi></math>)
+                found in the left and right singular matrices <math><mi>U</mi></math> and <math><msup><mi>V</mi><mi>T</mi></msup></math> respectively.
+            </p>
+            <p>
+                3. <math><mi>U</mi></math> and <math><mi>V</mi></math> are orthonormal matrices, i.e. each of them are made up of a set of 
+                linearly independent vectors. Each corresponding singular vector pair (<math><mi>u</mi></math>, <math><mi>v</mi></math>)
+                represents a dimension of the linear transformation <math><mi>A</mi></math>, or an implicit relationship or property 
+                that describes the data matrix <math><mi>A</mi></math>.
+            </p>
+            <p>
+                4. <math><mi>Σ</mi></math> exposes the rank of <math><mi>A</mi></math>. We can reduce the rank / dimension 
+                of <math><mi>A</mi></math> by setting a singular value σ to 0, which removes the corresponding singular vector pair (<math><mi>u</mi></math>, <math><mi>v</mi></math>) from the SVD.
             </p>
         </main>
         <script src="lib/ksdom_v0.1.js"></script>
         <script src="lib/ksmath_v0.1.js"></script>
+        <script>
+            /** SVD procedure as explained in "Singular Value Decomposition and Least Squares Solutions. By G.H. Golub et al."
+             *
+             * This procedure computes the singular values and complete orthogonal decomposition of a real rectangular matrix A:
+             *    A = U * diag(q) * V(t), U(t) * U = V(t) * V = I
+             * where the arrays a, u, v, q represent A, U, V, q respectively. The actual parameters corresponding to a, u, v may
+             * all be identical unless withu = withv = {true}. In this case, the actual parameters corresponding to u and v must
+             * differ. m >= n is assumed (with m = a.length and n = a[0].length)
+             *
+             *  @param a {Array} Represents the matrix A to be decomposed
+             *  @param [withu] {bool} {true} if U is desired {false} otherwise
+             *  @param [withv] {bool} {true} if U is desired {false} otherwise
+             *  @param [eps] {Number} A constant used in the test for convergence; should not be smaller than the machine precision
+             *  @param [tol] {Number} A machine dependent constant which should be set equal to B/eps0 where B is the smallest
+             *    positive number representable in the computer
+             *
+             *  @returns {Object} An object containing:
+             *    q: A vector holding the singular values of A; they are non-negative but not necessarily ordered in
+             *      decreasing sequence
+             *    u: Represents the matrix U with orthonormalized columns (if withu is {true} otherwise u is used as
+             *      a working storage)
+             *    v: Represents the orthogonal matrix V (if withv is {true}, otherwise v is not used)
+             *
+             */
+            const SVD = (a, withu, withv, eps, tol) => {
+                // Define default parameters
+                withu = withu !== undefined ? withu : true
+                withv = withv !== undefined ? withv : true
+                eps = eps || Math.pow(2, -52)
+                tol = 1e-64 / eps
+
+                // throw error if a is not defined
+                if (!a) {
+                    throw new TypeError('Matrix a is not defined')
+                }
+
+                // Householder's reduction to bidiagonal form
+
+                const n = a[0].length
+                const m = a.length
+
+                if (m < n) {
+                    throw new TypeError('Invalid matrix: m < n')
+                }
+
+                let i, j, k, l, l1, c, f, g, h, s, x, y, z
+
+                g = 0
+                x = 0
+                const e = []
+
+                const u = []
+                const v = []
+
+                const mOrN = (withu === 'f') ? m : n
+
+                // Initialize u
+                for (i = 0; i < m; i++) {
+                    u[i] = new Array(mOrN).fill(0)
+                }
+
+                // Initialize v
+                for (i = 0; i < n; i++) {
+                    v[i] = new Array(n).fill(0)
+                }
+
+                // Initialize q
+                const q = new Array(n).fill(0)
+
+                // Copy array a in u
+                for (i = 0; i < m; i++) {
+                    for (j = 0; j < n; j++) {
+                        u[i][j] = a[i][j]
+                    }
+                }
+
+                for (i = 0; i < n; i++) {
+                    e[i] = g
+                    s = 0
+                    l = i + 1
+                    for (j = i; j < m; j++) {
+                        s += Math.pow(u[j][i], 2)
+                    }
+                    if (s < tol) {
+                        g = 0
+                    } else {
+                        f = u[i][i]
+                        g = f < 0 ? Math.sqrt(s) : -Math.sqrt(s)
+                        h = f * g - s
+                        u[i][i] = f - g
+                        for (j = l; j < n; j++) {
+                            s = 0
+                            for (k = i; k < m; k++) {
+                                s += u[k][i] * u[k][j]
+                            }
+                            f = s / h
+                            for (k = i; k < m; k++) {
+                                u[k][j] = u[k][j] + f * u[k][i]
+                            }
+                        }
+                    }
+                    q[i] = g
+                    s = 0
+                    for (j = l; j < n; j++) {
+                        s += Math.pow(u[i][j], 2)
+                    }
+                    if (s < tol) {
+                        g = 0
+                    } else {
+                        f = u[i][i + 1]
+                        g = f < 0 ? Math.sqrt(s) : -Math.sqrt(s)
+                        h = f * g - s
+                        u[i][i + 1] = f - g
+                        for (j = l; j < n; j++) {
+                            e[j] = u[i][j] / h
+                        }
+                        for (j = l; j < m; j++) {
+                            s = 0
+                            for (k = l; k < n; k++) {
+                                s += u[j][k] * u[i][k]
+                            }
+                            for (k = l; k < n; k++) {
+                                u[j][k] = u[j][k] + s * e[k]
+                            }
+                        }
+                    }
+                    y = Math.abs(q[i]) + Math.abs(e[i])
+                    if (y > x) {
+                        x = y
+                    }
+                }
+
+                // Accumulation of right-hand transformations
+                if (withv) {
+                    for (i = n - 1; i >= 0; i--) {
+                        if (g !== 0) {
+                            h = u[i][i + 1] * g
+                            for (j = l; j < n; j++) {
+                                v[j][i] = u[i][j] / h
+                            }
+                            for (j = l; j < n; j++) {
+                                s = 0
+                                for (k = l; k < n; k++) {
+                                    s += u[i][k] * v[k][j]
+                                }
+                                for (k = l; k < n; k++) {
+                                    v[k][j] = v[k][j] + s * v[k][i]
+                                }
+                            }
+                        }
+                        for (j = l; j < n; j++) {
+                            v[i][j] = 0
+                            v[j][i] = 0
+                        }
+                        v[i][i] = 1
+                        g = e[i]
+                        l = i
+                    }
+                }
+
+                // Accumulation of left-hand transformations
+                if (withu) {
+                    if (withu === 'f') {
+                        for (i = n; i < m; i++) {
+                            for (j = n; j < m; j++) {
+                                u[i][j] = 0
+                            }
+                            u[i][i] = 1
+                        }
+                    }
+                    for (i = n - 1; i >= 0; i--) {
+                        l = i + 1
+                        g = q[i]
+                        for (j = l; j < mOrN; j++) {
+                            u[i][j] = 0
+                        }
+                        if (g !== 0) {
+                            h = u[i][i] * g
+                            for (j = l; j < mOrN; j++) {
+                                s = 0
+                                for (k = l; k < m; k++) {
+                                    s += u[k][i] * u[k][j]
+                                }
+                                f = s / h
+                                for (k = i; k < m; k++) {
+                                    u[k][j] = u[k][j] + f * u[k][i]
+                                }
+                            }
+                            for (j = i; j < m; j++) {
+                                u[j][i] = u[j][i] / g
+                            }
+                        } else {
+                            for (j = i; j < m; j++) {
+                                u[j][i] = 0
+                            }
+                        }
+                        u[i][i] = u[i][i] + 1
+                    }
+                }
+
+                // Diagonalization of the bidiagonal form
+                eps = eps * x
+                let testConvergence
+                for (k = n - 1; k >= 0; k--) {
+                    for (let iteration = 0; iteration < 50; iteration++) {
+                        // test-f-splitting
+                        testConvergence = false
+                        for (l = k; l >= 0; l--) {
+                            if (Math.abs(e[l]) <= eps) {
+                                testConvergence = true
+                                break
+                            }
+                            if (Math.abs(q[l - 1]) <= eps) {
+                                break
+                            }
+                        }
+
+                        if (!testConvergence) { // cancellation of e[l] if l>0
+                            c = 0
+                            s = 1
+                            l1 = l - 1
+                            for (i = l; i < k + 1; i++) {
+                                f = s * e[i]
+                                e[i] = c * e[i]
+                                if (Math.abs(f) <= eps) {
+                                    break // goto test-f-convergence
+                                }
+                                g = q[i]
+                                q[i] = Math.sqrt(f * f + g * g)
+                                h = q[i]
+                                c = g / h
+                                s = -f / h
+                                if (withu) {
+                                    for (j = 0; j < m; j++) {
+                                        y = u[j][l1]
+                                        z = u[j][i]
+                                        u[j][l1] = y * c + (z * s)
+                                        u[j][i] = -y * s + (z * c)
+                                    }
+                                }
+                            }
+                        }
+
+                        // test f convergence
+                        z = q[k]
+                        if (l === k) { // convergence
+                            if (z < 0) {
+                                // q[k] is made non-negative
+                                q[k] = -z
+                                if (withv) {
+                                    for (j = 0; j < n; j++) {
+                                        v[j][k] = -v[j][k]
+                                    }
+                                }
+                            }
+                            break // break out of iteration loop and move on to next k value
+                        }
+
+                        // Shift from bottom 2x2 minor
+                        x = q[l]
+                        y = q[k - 1]
+                        g = e[k - 1]
+                        h = e[k]
+                        f = ((y - z) * (y + z) + (g - h) * (g + h)) / (2 * h * y)
+                        g = Math.sqrt(f * f + 1)
+                        f = ((x - z) * (x + z) + h * (y / (f < 0 ? (f - g) : (f + g)) - h)) / x
+
+                        // Next QR transformation
+                        c = 1
+                        s = 1
+                        for (i = l + 1; i < k + 1; i++) {
+                            g = e[i]
+                            y = q[i]
+                            h = s * g
+                            g = c * g
+                            z = Math.sqrt(f * f + h * h)
+                            e[i - 1] = z
+                            c = f / z
+                            s = h / z
+                            f = x * c + g * s
+                            g = -x * s + g * c
+                            h = y * s
+                            y = y * c
+                            if (withv) {
+                                for (j = 0; j < n; j++) {
+                                    x = v[j][i - 1]
+                                    z = v[j][i]
+                                    v[j][i - 1] = x * c + z * s
+                                    v[j][i] = -x * s + z * c
+                                }
+                            }
+                            z = Math.sqrt(f * f + h * h)
+                            q[i - 1] = z
+                            c = f / z
+                            s = h / z
+                            f = c * g + s * y
+                            x = -s * g + c * y
+                            if (withu) {
+                                for (j = 0; j < m; j++) {
+                                    y = u[j][i - 1]
+                                    z = u[j][i]
+                                    u[j][i - 1] = y * c + z * s
+                                    u[j][i] = -y * s + z * c
+                                }
+                            }
+                        }
+                        e[l] = 0
+                        e[k] = f
+                        q[k] = x
+                    }
+                }
+
+                // Number below eps should be zero
+                for (i = 0; i < n; i++) {
+                    if (q[i] < eps) q[i] = 0
+                }
+
+                // Added by KS: Sort q, u, v by descending order of singular values.
+                // TODO: This is bubblesort. Please optimize using quicksort.
+                for (let i = 0; i < q.length; i++) {
+                    for (let j = 0; j < (q.length - i - 1); j ++) {
+                        if (q[j] < q[j+1]) {
+                            let temp = q[j]; 
+                            q[j] = q[j + 1]; 
+                            q[j + 1] = temp;
+                            for (let row = 0; row < q.length; row ++) {
+                                    temp = u[row][j]; u[row][j] = u[row][j + 1]; u[row][j + 1] = temp;
+                                    temp = v[row][j]; v[row][j] = v[row][j + 1]; v[row][j + 1] = temp;
+                            }
+                        }
+                    }
+                }
+
+                return { u, q, v }
+            }
+        </script>
         <script>
             function sketch2(p) {
                 let _canvasWidth;
@@ -783,6 +1349,83 @@
                 }
             }
             new p5(sketch3);
+
+            function sketch4(p) {
+                let _canvasWidth;
+                let _pixelWidth;
+                let _image = [
+                    [0,0,0,0,0,0,0,0,0,0],
+                    [0,0,1,1,1,1,1,1,0,0],
+                    [0,1,1,1,1,1,1,1,1,0],
+                    [1,1,1,0,1,1,0,1,1,1],
+                    [1,1,1,1,1,1,1,1,1,1],
+                    [1,1,0,1,1,1,1,0,1,1],
+                    [1,1,1,0,0,0,0,1,1,1],
+                    [0,1,1,1,1,1,1,1,1,0],
+                    [0,0,1,1,1,1,1,1,0,0],
+                    [0,0,0,0,0,0,0,0,0,0]
+                ];
+
+                let { u, v, q } = SVD(_image);
+                let s = [];
+                for (let y = 0; y < 10; y++) {
+                    s.push([]);
+                    for (let x = 0; x < 10; x++) {
+                        if (x === y) 
+                            s[y].push(q[y]);
+                        else 
+                            s[y].push(0);
+                    }
+                }
+                _image = calculateImage();
+                KSDom.updateListeners("s4s", KSMath.Matrix.toFixed(s, 1));
+
+                let compressionQuality = 100;
+                KSDom.updateListeners("s4Slider", compressionQuality + "%");
+
+                const slider4 = document.getElementById("sketch-4-slide");
+
+                slider4.addEventListener('input', () => {
+                    compressionQuality = slider4.value * 10;
+                    for(let i = 0; i < 10; i++) {
+                        if (i < slider4.value)
+                            s[i][i] = q[i];
+                        else 
+                            s[i][i] = 0;
+                    }
+                    _image = calculateImage();
+                    KSDom.updateListeners("s4s", KSMath.Matrix.toFixed(s, 1));
+                    KSDom.updateListeners("s4Slider", compressionQuality + "%");
+                });
+    
+                p.setup = function() {
+                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    let canvas = p.createCanvas(_canvasWidth, _canvasWidth * 9/16);
+                    _pixelWidth = _canvasWidth * 9/16 / 10;
+                    canvas.parent('sketch-holder-4');
+                }
+
+                p.windowResized = function() {
+                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    p.resizeCanvas(_canvasWidth, _canvasWidth * 9/16);
+                    _pixelWidth = _canvasWidth * 9/16 / 10;
+                }
+
+                p.draw = function() {
+                    p.background(255);
+                    for (let y = 0; y < 10; y++) {
+                        for (let x = 0; x < 10; x++) {
+                            p.fill(Math.abs(_image[y][x]) * 255);
+                            p.square(x * _pixelWidth, y * _pixelWidth, _pixelWidth);
+                        }
+                    }
+                }
+
+                function calculateImage() {
+                    return KSMath.Matrix.toFixed(KSMath.Matrix.multiply(KSMath.Matrix.multiply(u, s), KSMath.Matrix.transpose(v)), 2);
+                }
+            }
+            new p5(sketch4);
         </script>
     </body>
 </html>
