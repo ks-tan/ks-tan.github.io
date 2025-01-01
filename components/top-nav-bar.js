@@ -7,34 +7,24 @@
 			console.log(window.location.hash);
 			const shadow = this.attachShadow({ mode: 'open' });
 			const container = document.createElement('div');
-			const title = "Tan Kang Soon";
 			const remoteUrl = "https://ks-tan.github.io"
 			container.innerHTML = `
 				<style>
-					main {
-						font-family: sans-serif;
-						font-size: 2.5vw;
-						line-height: 7.5vw;
-						margin: 0 auto;
-					}
-					main a {
-						float: left;
-						text-decoration: none;
-						text-align: center;
-						color: black;
-					}
-					
-					/* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
-					@media (min-width:1025px)  {
-						main {
-							font-size: 1.2vw;
-							line-height: 2vw;
-						}
+					h1 {
+						font-weight: 400;
+						margin-top: 4rem;
+						margin-bottom: 1.5rem;
+						font-size: 3.2rem;
+						line-height: 1;
 					}
 				</style>
 				<main>
-					<a href="${remoteUrl}">${title}</a>
-					<a href="${remoteUrl}/svd">Blog</a>
+					<h1>Tan Kang Soon</h1>
+					<a href="${remoteUrl}">home</a> |
+					<a href="${remoteUrl}/svd">blog</a> | 
+					<a href="${remoteUrl}/svd">games</a> |
+					<a href="${remoteUrl}/svd">resume</a>
+					<br>
 				</main>
 				<script>
 					function displayHash() {

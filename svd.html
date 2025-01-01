@@ -2,14 +2,16 @@
 <html lang="en">
     <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.8.0/p5.min.js"></script>
+        <script src="components/top-nav-bar.js"></script>
         <link rel="stylesheet" href="style/main.css">
         <meta charset="utf-8" />
     </head>
     <body>
         <main>
+            <top-nav-bar></top-nav-bar>
             <h1>Introduction to Singular Value Decomposition</h1>
             <p>Published: Dec 2024</p>
-            <h3>Introducing SVD using linear transformations</h3>
+            <h2>Introducing SVD using linear transformations</h2>
             <p>
                 From Wikipedia: "In linear algebra, the <b>singular value decomposition (SVD)</b> 
                 is a factorization of a real or complex matrix into a <b>rotation</b>, 
@@ -58,7 +60,7 @@
                 <math><mrow><msub><mi>R</mi><mi>2</mi></msub></mrow></math> = 45°. 
                 This is represented by the following expression:
             </p>
-            <div style="overflow: auto; scrollbar-width: none;">
+            <div class="math-container">
                 <math>
                     <mrow>
                         <mi>A</mi><mo>=</mo><msub><mi>R</mi><mi>2</mi></msub><mo>*</mo><mi>S</mi><mo>*</mo><msub><mi>R</mi><mi>1</mi></msub>
@@ -104,7 +106,7 @@
                 </math> 
             </div>
             <p>Let us rewrite this as the <b>key expression</b> that is commonly used to describe the SVD of a matrix:</p>
-            <div style="overflow: auto; scrollbar-width: none;">
+            <div class="math-container">
                 <math>
                     <mrow>
                         <mi>A</mi><mo>=</mo><mi>U</mi><mi>Σ</mi><msup><mi>V</mi><mi>T</mi></msup>
@@ -181,7 +183,7 @@
             <p>If we split the resulting vector <math><mrow><mi>x</mi></mrow></math> as a scalar value with a unit vector, we shall get:</p>
             <p><math><mrow><mi>A</mi><mi>v</mi><mo>=</mo><mi>σ</mi><mi>u</mi></mrow></math></p>
             <p>Imagine that now instead of just transforming 1 vector, we are going to transform a series of vectors using this expression:</p>
-            <div style="overflow: auto; scrollbar-width: none;">
+            <div class="math-container">
                 <math>
                     <mrow>
                         <mi>A</mi>
@@ -242,9 +244,9 @@
             <p><math><mrow><mi>A</mi><mi>V</mi><mo>=</mo><mi>U</mi><mi>Σ</mi></mrow></math></p>
             <p><math><mrow><mi>A</mi><mo>=</mo><mi>U</mi><mi>Σ</mi><msup><mi>V</mi><mi>T</mi></msup></mrow></math></p>
             <p>But why does SVD matter? Because it exposes some interesting properties that can be used to solve a variety of problems!</p>
-            <h3>Dimensionality Reduction and Data Compression</h3>
+            <h2>Dimensionality Reduction and Data Compression</h2>
             <p>Consider this rank 1 matrix</p>
-            <div style="overflow: auto; scrollbar-width: none;">
+            <div class="math-container">
                 <math>
                     <mrow>
                         <mi>A</mi><mo>=</mo>
@@ -313,7 +315,7 @@
                 We cannot simply reduce it into a multiplication of 1 pair of row matrix and column matrix. 
                 But what we can do is to <b>approximate</b> A by using a sum of ranked 1 matrices like so:
             </p>
-            <p style="overflow: auto; scrollbar-width: none;">
+            <p class="math-container">
                 <math>
                     <mrow>
                         <mi>A</mi><mo>=</mo>
@@ -324,7 +326,7 @@
                     </mrow>
                 </math>
             </p>
-            <p style="overflow: auto; scrollbar-width: none;">
+            <p class="math-container">
                 <math>
                     <mrow>
                         <mo>=</mo>
@@ -410,7 +412,7 @@
                 <input type="range" min="0" max="100" value="100" class="slider" id="sketch-3-slide-s2">
                 <label>{{s3Sigma[1][1]}}</label>
             </p>
-            <p style="overflow: auto; scrollbar-width: none;">
+            <p class="math-container">
                 <math>
                     <mrow>
                         <mi>A</mi><mo>=</mo>
@@ -445,7 +447,7 @@
                     </mrow>
                 </math>
             </p>
-            <p style="overflow: auto; scrollbar-width: none;">
+            <p class="math-container">
                 <math>
                     <mrow>
                         <mo>=</mo><mo>[</mo>
@@ -489,7 +491,7 @@
                     </mrow>
                 </math>
             </p>
-            <p style="overflow: auto; scrollbar-width: none;">
+            <p class="math-container">
                 <math>
                     <mrow>
                         <mo>=</mo><mo>[</mo>
@@ -532,7 +534,7 @@
                 <input type="range" min="0" max="10" value="10" class="slider" id="sketch-4-slide">
                 <label>{{s4Slider}}</label>
             </p>
-            <p style="overflow: auto; scrollbar-width: none;">
+            <p class="math-container">
                 <math style="font-size: 1.25vw;">
                     <mrow>
                         <mi>Σ</mi><mo>=</mo><mo>[</mo>
@@ -671,11 +673,11 @@
                 there is no change to the image when we adjust the "quality" slider between 50% - 100%. But the change to the image quality gets
                 increasingly visible as the affected singular value gets bigger.
             </p>
-            <h3>Finding correlations using SVD</h3>
-            <h3>Solving linear systems</h3>
-            <h3>Summary</h3>
+            <h2>Finding correlations using SVD</h2>
+            <h2>Solving linear systems</h2>
+            <h2>Summary</h2>
             <p>1. All complex matrices can be factorized into 3 separate matrices using the SVD as such:</p>
-            <p style="overflow: auto; scrollbar-width: none;">
+            <p class="math-container">
                 <math>
                     <mrow>
                         <mi>A</mi><mo>=</mo>
@@ -686,7 +688,7 @@
                     </mrow>
                 </math>
             </p>
-            <p style="overflow: auto; scrollbar-width: none;">
+            <p class="math-container">
                 <math>
                     <mrow>
                         <mo>=</mo>
