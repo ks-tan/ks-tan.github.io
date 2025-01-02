@@ -1099,6 +1099,10 @@
             }
         </script>
         <script>
+            function calculateCanvasWidth(p) {
+                return Math.min(p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2, 700);
+            }
+
             function sketch2(p) {
                 let _canvasWidth;
                 let _currentStep = 0;
@@ -1106,14 +1110,14 @@
                 let timeout = undefined;
 
                 p.setup = function() {
-                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    _canvasWidth = calculateCanvasWidth(p);
                     let canvas = p.createCanvas(_canvasWidth, _canvasWidth * 9/16, p.WEBGL);
                     canvas.parent('sketch-holder-2');
                     p.angleMode(p.DEGREES);
                 }
     
                 p.windowResized = function() {
-                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    _canvasWidth = calculateCanvasWidth(p);
                     p.resizeCanvas(_canvasWidth, _canvasWidth * 9/16);
                 }
 
@@ -1191,14 +1195,14 @@
                 KSDom.updateListeners("_tm", KSMath.Matrix.toFixed(_tm, 2));
     
                 p.setup = function() {
-                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    _canvasWidth = calculateCanvasWidth(p);
                     let canvas = p.createCanvas(_canvasWidth, _canvasWidth * 9/16, p.WEBGL);
                     canvas.parent('sketch-holder-1');
                     p.angleMode(p.DEGREES);
                 }
     
                 p.windowResized = function() {
-                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    _canvasWidth = calculateCanvasWidth(p);
                     p.resizeCanvas(_canvasWidth, _canvasWidth * 9/16);
                 }
     
@@ -1292,14 +1296,14 @@
                 let _canvasWidth;
     
                 p.setup = function() {
-                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    _canvasWidth = calculateCanvasWidth(p);
                     let canvas = p.createCanvas(_canvasWidth, _canvasWidth * 9/16, p.WEBGL);
                     canvas.parent('sketch-holder-3');
                     p.angleMode(p.DEGREES);
                 }
     
                 p.windowResized = function() {
-                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    _canvasWidth = calculateCanvasWidth(p);
                     p.resizeCanvas(_canvasWidth, _canvasWidth * 9/16);
                 }
 
@@ -1378,14 +1382,14 @@
                 });
     
                 p.setup = function() {
-                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    _canvasWidth = calculateCanvasWidth(p);
                     let canvas = p.createCanvas(_canvasWidth, _canvasWidth * 9/16);
                     _pixelWidth = _canvasWidth * 9/16 / 10;
                     canvas.parent('sketch-holder-4');
                 }
 
                 p.windowResized = function() {
-                    _canvasWidth = p.windowHeight > p.windowWidth ? p.windowWidth * 0.8 : p.windowWidth / 2;
+                    _canvasWidth = calculateCanvasWidth(p);
                     p.resizeCanvas(_canvasWidth, _canvasWidth * 9/16);
                     _pixelWidth = _canvasWidth * 9/16 / 10;
                 }
