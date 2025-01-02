@@ -12,27 +12,26 @@ h1 {
     font-weight: 400;
     margin-top: 4rem;
     margin-bottom: 1.5rem;
-    font-size: 3.2rem;
-    line-height: 1;
+    font-size: 5rem;
+    line-height: 1.25;
 }
 h2 {
     font-style: italic;
     font-weight: 400;
-    margin-top: 2.1rem;
-    margin-bottom: 1.4rem;
-    font-size: 2.2rem;
-    line-height: 1;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    font-size: 4rem;
+    line-height: 1.25;
 }
 p {
-    margin-top: 1.4rem;
-    margin-bottom: 1.4rem;
-    padding-right: 0;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     vertical-align: baseline;
-    font-size: 1.4rem;
-    line-height: 2rem;
+    font-size: 2.5rem;
+    line-height: 5rem;
 }
 math {
-    font-size: 3rem;
+    font-size: 3.5rem;
 }
 .math-container {
     overflow: auto; 
@@ -44,6 +43,20 @@ math {
     main {
         width: 87.5%;
         max-width: 700px;
+    }
+    h1 {
+        font-size: 3.2rem;
+    }
+    h2 {
+        margin-top: 2.1rem;
+        margin-bottom: 1.4rem;
+        font-size: 2.2rem;  
+    }
+    p {
+        margin-top: 1.4rem;
+        margin-bottom: 1.4rem;
+        font-size: 1.4rem;
+        line-height: 2rem;
     }
     math {
         font-size: 1.6rem;
