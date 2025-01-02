@@ -9,11 +9,14 @@
 			const remoteUrl = "https://ks-tan.github.io"
 			container.innerHTML = `
 				<style>
+					main {
+						margin-bottom: 8rem;
+					}
 					h1 {
 						font-weight: 400;
-						margin-top: 4rem;
+						margin-top: 10rem;
 						margin-bottom: 1.5rem;
-						font-size: 3.2rem;
+						font-size: 6.5rem;
 						line-height: 1;
 					}
 					a {
@@ -21,6 +24,13 @@
 					}
 					/* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
 					@media (min-width:1025px)  {
+						main {
+							margin-bottom: 0;
+						}
+						h1 {
+							margin-top: 4rem;
+							font-size: 3.2rem;
+						}
 						a {
 							font-size: 1.4rem;
 						}
