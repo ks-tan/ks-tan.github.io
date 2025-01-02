@@ -4,7 +4,6 @@
 	class TopNavBar extends HTMLElement {
 		constructor() {
 			super();
-			console.log(window.location.hash);
 			const shadow = this.attachShadow({ mode: 'open' });
 			const container = document.createElement('div');
 			const remoteUrl = "https://ks-tan.github.io"
@@ -17,6 +16,15 @@
 						font-size: 3.2rem;
 						line-height: 1;
 					}
+					a {
+						font-size: 2.5rem;
+					}
+					/* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
+					@media (min-width:1025px)  {
+						a {
+							font-size: 1.4rem;
+						}
+					}
 				</style>
 				<main>
 					<h1>Tan Kang Soon</h1>
@@ -26,13 +34,6 @@
 					<a href="${remoteUrl}/svd">resume</a>
 					<br>
 				</main>
-				<script>
-					function displayHash() {
-						var theHash = window.location.hash;
-						console.log(theHash);
-					}
-					displayHash();
-				</script>
 			`;
 			shadow.appendChild(container);
 		}
