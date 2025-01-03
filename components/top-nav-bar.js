@@ -21,11 +21,11 @@
 				</style>
 				<main>
 					<h1>Tan Kang Soon</h1>
-					<a href="${remoteUrl}">home</a> |
-					<a href="${remoteUrl}/blog">blog</a> | 
-					<a href="${remoteUrl}/">games</a> |
-					<a href="${remoteUrl}/">cv</a> |
-					<a href="${remoteUrl}/">socials</a>
+					<a href="/">home</a> |
+					<a href="/blog">blog</a> | 
+					<a href="/">games</a> |
+					<a href="/">cv</a> |
+					<a href="/">socials</a>
 				</main>
 			`;
 			shadow.appendChild(container);
