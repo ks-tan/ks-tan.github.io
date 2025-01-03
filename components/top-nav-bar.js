@@ -9,31 +9,14 @@
 			const remoteUrl = "https://ks-tan.github.io"
 			container.innerHTML = `
 				<style>
-					main {
-						margin-bottom: 8rem;
-					}
 					h1 {
+						margin-top: 4rem;
 						font-weight: 400;
-						margin-top: 10rem;
-						margin-bottom: 1.5rem;
-						font-size: 6.5rem;
-						line-height: 1;
+						font-size: 2.5rem;
+						line-height: 0.5;
 					}
 					a {
-						font-size: 2.5rem;
-					}
-					/* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ 
-					@media (min-width:1025px)  {
-						main {
-							margin-bottom: 0;
-						}
-						h1 {
-							margin-top: 4rem;
-							font-size: 3.2rem;
-						}
-						a {
-							font-size: 1.4rem;
-						}
+						font-size: 1.2rem;
 					}
 				</style>
 				<main>
@@ -42,7 +25,6 @@
 					<a href="${remoteUrl}/svd">blog</a> | 
 					<a href="${remoteUrl}/svd">games</a> |
 					<a href="${remoteUrl}/svd">resume</a>
-					<br>
 				</main>
 			`;
 			shadow.appendChild(container);
