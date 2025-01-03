@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Blog Posts</title>
+        <meta name="description" content="Game developer, tech lead and Computer Science lecturer. I keep a blog on programming, mathematics, video games and faith. I hope this site can become a learning resource for anyone interested.">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="components/top-nav-bar.js"></script>
+        <script src="components/site-footer.js"></script>
+        <link rel="stylesheet" href="style/main.css">
+    </head>
+    <body>
+        <main>
+            <top-nav-bar></top-nav-bar>
+            <h1>Blog Posts</h1>
+            <ul id="posts-list"></ul>
+            <site-footer></site-footer>
+        </main>
+    </body>
+    <script>
+        const remoteUrl = "https://ks-tan.github.io";
+        const posts = [
+            { title: "Introduction to Singular Value Decomposition", url: "svd", published: "Dec 2024" },
+        ]
+        const listElement = document.getElementById("posts-list");
+        posts.forEach(post => {
+            const li = document.createElement("li");
+            li.innerHTML = `<a href="${remoteUrl}/blog/${post.url}">${post.title}</a> — ${post.published}`;
+            listElement.appendChild(li);
+        });
+    </script>
+</html>

@@ -30,6 +30,13 @@ p {
     line-height: 2.2rem;
     vertical-align: baseline;
 }
+li {
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    line-height: 2.2rem;
+    vertical-align: baseline;
+}
 button {
     font-size: 1.1rem;
     padding: 10px;

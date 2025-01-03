@@ -6,7 +6,7 @@
 			super();
 			const shadow = this.attachShadow({ mode: 'open' });
 			const container = document.createElement('div');
-			const remoteUrl = "https://ks-tan.github.io"
+			const remoteUrl = "https://ks-tan.github.io";
 			container.innerHTML = `
 				<style>
 					h1 {
@@ -22,9 +22,10 @@
 				<main>
 					<h1>Tan Kang Soon</h1>
 					<a href="${remoteUrl}">home</a> |
-					<a href="${remoteUrl}/svd">blog</a> | 
-					<a href="${remoteUrl}/svd">games</a> |
-					<a href="${remoteUrl}/svd">resume</a>
+					<a href="${remoteUrl}/blog">blog</a> | 
+					<a href="${remoteUrl}/">games</a> |
+					<a href="${remoteUrl}/">cv</a> |
+					<a href="${remoteUrl}/">socials</a>
 				</main>
 			`;
 			shadow.appendChild(container);
