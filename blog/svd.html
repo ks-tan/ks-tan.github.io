@@ -280,7 +280,7 @@
                 </math>
             </div>
             <p>
-                This matrix is of rank = 1 because it only has 1 lineary independent column vector. 
+                This matrix is of rank = 1 because it only has 1 linearly independent column vector. 
                 By decomposing this bigger matrix to 2 smaller ones <math style="color:brown"><mrow><mi>u</mi></mrow></math> and <math><mrow><msup style="color:cadetblue"><mi>v</mi><mi>T</mi></msup></mrow></math>, we represent the same matrix with less data (16 vs just 8 numbers!). 
                 This becomes significant when we have a bigger, more complex matrix.
             </p>
@@ -289,7 +289,7 @@
             </p>
             <p>
                 Now imagine we have a higher ranked matrix A. 
-                We cannot simply reduce it into a multiplication of 1 pair of row matrix and column matrix. 
+                We cannot simply reduce it into 1 pair of row matrix and column matrix. 
                 But what we can do is to <b>approximate</b> A by using a sum of ranked 1 matrices like so:
             </p>
             <p class="math-container">
@@ -362,12 +362,12 @@
             <p>Again, we arrive at the standard SVD expression.</p>
             <p>
                 We see that <math><mi>Σ</mi></math> is a diagonal matrix consisting of scalar values "σ". These are known as <b>singular values</b>.
-                Each of them represents the "scale of influence" of its respective <b>left singular vector</b> <math><mi>u</mi></math> and <b>right singular vector</b> <math><mi>v</mi></math>
+                Each of them represents the "scale of influence" of its respective pair of <b>left and right singular vectors</b> <math><mi>u</mi></math> and <math><mi>v</mi></math>
                 (i.e. a "singular vector pair").  
             </p>
             <p>
                 In <math><mi>Σ</mi></math>, these singular values are arranged in descending order of magnitude. This means that the singular vector pairs 
-                later in the sequence has less influence in approximating the complex matrix <math><mi>A</mi></math>.
+                earlier in the sequence has a higher influence in approximating the complex matrix <math><mi>A</mi></math>.
             </p>
             <p>
                 This is a helpful property of SVD, as that means we can remove singular vector pairs that has the 
@@ -511,146 +511,54 @@
                 <input type="range" min="0" max="10" value="10" class="slider" id="sketch-4-slide">
                 <label>{{s4Slider}}</label>
             </p>
-            <p class="math-container">
-                <math style="font-size: 1.25vw;">
-                    <mrow>
-                        <mi>Σ</mi><mo>=</mo><mo>[</mo>
-                        <mtable>
-                            <mtr>
-                                <mtd><mi>{{s4s[0][0]}}</mi></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd></mtd>
-                                <mtd><mi>{{s4s[1][1]}}</mi></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd><mi>{{s4s[2][2]}}</mi></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd><mi>{{s4s[3][3]}}</mi></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd><mi>{{s4s[4][4]}}</mi></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd><mi>{{s4s[5][5]}}</mi></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd><mi>{{s4s[6][6]}}</mi></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd><mi>{{s4s[7][7]}}</mi></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd><mi>{{s4s[8][8]}}</mi></mtd>
-                                <mtd></mtd>
-                            </mtr>
-                            <mtr>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd></mtd>
-                                <mtd><mi>{{s4s[9][9]}}</mi></mtd>
-                            </mtr>
-                        </mtable>
-                        <mo>]</mo>
-                    </mrow>
-                </math>
-            </p>
+            <div>
+                <math style="margin-bottom: 10px;"><mrow><msub><mi>σ</mi><mi>1</mi></msub><mo>=</mo><mi style="color:brown; font-weight: bold;">{{s4s[0][0]}}</mi></mrow></math><br>
+                <math style="margin-bottom: 10px;"><mrow><msub><mi>σ</mi><mi>2</mi></msub><mo>=</mo><mi style="color:brown; font-weight: bold;">{{s4s[1][1]}}</mi></mrow></math><br>
+                <math style="margin-bottom: 10px;"><mrow><msub><mi>σ</mi><mi>3</mi></msub><mo>=</mo><mi style="color:brown; font-weight: bold;">{{s4s[2][2]}}</mi></mrow></math><br>
+                <math style="margin-bottom: 10px;"><mrow><msub><mi>σ</mi><mi>4</mi></msub><mo>=</mo><mi style="color:brown; font-weight: bold;">{{s4s[3][3]}}</mi></mrow></math><br>
+                <math style="margin-bottom: 10px;"><mrow><msub><mi>σ</mi><mi>5</mi></msub><mo>=</mo><mi style="color:brown; font-weight: bold;">{{s4s[4][4]}}</mi></mrow></math><br>
+                <math style="margin-bottom: 10px;"><mrow><msub><mi>σ</mi><mi>6</mi></msub><mi style="margin-right: 10px; margin-left: 10px;">...</mi><msub><mi>σ</mi><mi>10</mi></msub><mo>=</mo><mi>0</mi></mrow></math><br>
+            </div>
             <p>
                 In the image matrix, we can tell that out of 10 column vectors, there are only 5
                 that are linearly independent. This is because the left half of the image is the same as the right half.
             </p>
             <p>
                 Hence <math><mrow><mi>Σ</mi></mrow></math> and the image matrix are both of rank = 5 (the last 5 singular values σ are 0), i.e. 
-                there is no change to the image when we adjust the "quality" slider between 50% - 100%. But the change to the image quality gets
-                increasingly visible as the affected singular value gets bigger.
+                the last 5 singular vector pairs do not tell us any new patterns or information about the image, 
+                and so there is no change to the image when we adjust the "quality" slider between 50% - 100%.
+                But the change to the image quality gets increasingly visible as the affected singular value gets bigger.
+                The first 5 singular vector pairs have a higher influence in approximating our image matrix.
             </p>
-            <h2>Finding correlations using SVD</h2>
+            <h2>Finding hidden correlations in a matrix using SVD</h2>
+            <p>
+                As we might be able tell based on intuition from the previous example, each singular vector pair describes some unique "characteristic" of the image, with the early "characteristics" having more influence (or a stronger strength) in approximating the image.
+            </p>
+            <p>
+                Another way to put this is that in <math><mrow><mi>A</mi><mo>=</mo><mi>U</mi><mi>Σ</mi><msup><mi>V</mi><mi>T</mi></msup></mrow></math>:
+                <ul>
+                    <li>
+                        <math><mrow><mi>V</mi></mrow></math> describes the unique characteristics among the <b>columns</b> of <math><mrow><mi>A</mi></mrow></math>,
+                    </li>
+                    <li>
+                        <math><mrow><mi>U</mi></mrow></math> describes the unique characteristics among the <b>rows</b> of <math><mrow><mi>A</mi></mrow></math>, and
+                    </li>
+                    <li>
+                        <math><mrow><mi>Σ</mi></mrow></math> describes the strength of the relationship between the unique column-wise and row-wise characteristics
+                        descirbed by the corresponding singular vector pair in <math><mrow><mi>U</mi></mrow></math> and <math><mrow><mi>V</mi></mrow></math>.
+                    </li>
+                </ul>
+            </p>
+            <p>
+                Let us look at how this is reflected in mathematical terms.
+            </p>
+            <p>
+                An <b>eigenvector</b> <math><mrow><mi>x</mi></mrow></math> of a matrix <math><mrow><mi>A</mi></mrow></math> is a vector that does not change direction when multiplied by <math><mrow><mi>A</mi></mrow></math>. <math><mrow><mi>x</mi></mrow></math> simply gets scaled by a certain amount <math><mrow><mi>λ</mi></mrow></math>, which is known as the <b>eigenvalue</b>. In other words:
+            </p>
+            <div class="math-container"><math><mrow><mi>A</mi><mi>x</mi><mo>=</mo><mi>λ</mi><mi>x</mi></mrow></math></div>
+            <p>
+                The importance of eigenvectors is reflected in the German word <i>eigen</i>, which means "characteristic of".
+            </p>
             <h2>Solving linear systems</h2>
             <h2>Summary</h2>
             <p>1. All complex matrices can be factorized into 3 separate matrices using the SVD as such:</p>
