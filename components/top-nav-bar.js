@@ -23,8 +23,8 @@
 					<h1>Tan Kang Soon</h1>
 					<a href="/">home</a> |
 					<a href="/blog">blog</a> | 
-					<a href="/">games</a> |
-					<a href="/">cv</a> |
+					<a href="/">projects</a> |
+					<a href="/cv">cv</a> |
 					<a href="/">socials</a>
 				</main>
 			`;
