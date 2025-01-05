@@ -1,0 +1,18 @@
+{
+  "name": "personal-website",
+  "version": "1.0.0",
+  "description": "Blog, resume and project showcases",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "dev": "node kswebdist_v0.1.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tan Kang Soon",
+  "license": "ISC",
+  "dependencies": {
+    "uglify-js": "^3.19.3"
+  }
+}
