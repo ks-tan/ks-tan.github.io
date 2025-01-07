@@ -366,12 +366,12 @@
                 (i.e. a "singular vector pair").  
             </p>
             <p>
-                In <math><mi>Σ</mi></math>, these singular values are arranged in descending order of magnitude. This means that the singular vector pairs 
+                In <math><mi>Σ</mi></math>, these singular values σ are arranged in descending order of magnitude. This means that the singular vector pairs 
                 earlier in the sequence has a higher influence in approximating the complex matrix <math><mi>A</mi></math>.
             </p>
             <p>
                 This is a helpful property of SVD, as that means we can remove singular vector pairs that has the 
-                least influence (i.e. smallest singular values) in approximating <math><mi>A</mi></math>.
+                least influence in approximating <math><mi>A</mi></math> by turning their corresponding singular values σ to 0.
                 This helps us achieve lossy compression with minimal information loss!
             </p>
             <p>
