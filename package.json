@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "dev": "node kswebdist_v0.1.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rmdir /s /q dist",
+    "build": "node lib/ksbuild_v0.1.js"
   },
   "author": "Tan Kang Soon",
   "license": "ISC",
