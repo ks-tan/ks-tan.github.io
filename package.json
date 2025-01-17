@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "clean": "rmdir /s /q dist",
+    "clean": "node lib/ksbuild_v0.1.js --clean",
     "build": "node lib/ksbuild_v0.1.js"
   },
   "author": "Tan Kang Soon",
